@@ -12,8 +12,6 @@ import axios from "axios";
 const Destination = () => {
     const [isVerticalLayout, setIsVerticalLayout] = useState(false);
     const [isMaxLayout, setIsMaxLayout] = useState(true);
-    const itemsPerPage = isVerticalLayout ? 6 : 4;
-    const [currentPage, setCurrentPage] = useState(1);
 
     const [destinations, setDestinations] = useState([]);
     const API_URL = process.env.REACT_APP_API_URL;
@@ -53,17 +51,6 @@ const Destination = () => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
 
     const menuRef = useRef(null);
-
-
-    const totalItems = destinations.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentDestinations = destinations.slice(startIndex, endIndex);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
 
     useEffect(() => {
         setIsVerticalLayout(false);
@@ -366,6 +353,16 @@ const Destination = () => {
         fetchTravelTypes();
     }, [API_URL, ACCESS_TOKEN]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
+
+    const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
+
+    const paginatedDestinations = filteredDestinations.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
     useEffect(() => {
         const fetchDestinations = async () => {
             try {
@@ -413,7 +410,7 @@ const Destination = () => {
                         return destination.subCategories?.some((subCategory) =>
                             selectedOptions[filter].includes(subCategory.name)
                         );
-                    }                    
+                    }
                     if (filter === "Transport Method") {
                         return destination.bestTransportMethodDestinations?.some((method) =>
                             selectedOptions[filter].includes(method.description)
@@ -436,7 +433,8 @@ const Destination = () => {
 
         applyFilters();
     }, [destinations, selectedOptions]);
-    
+
+    const DriveLink = 'https://lh3.google.com/u/0/d/1U36gDhh3nJl7mJ00mKisW9RsOYLSgaxs=w1920-h945-iv1'
 
     return (
         <>
@@ -699,15 +697,14 @@ const Destination = () => {
                 </div>
 
                 <div className={`grid ${isMaxLayout ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-6`}>
-                    {filteredDestinations.map((destination, index) => (
+                    {paginatedDestinations.map((destination, index) => (
                         <div
                             key={index}
                             className={`bg-white shadow-lg rounded-lg overflow-hidden flex ${isVerticalLayout ? 'flex-col' : 'flex-col sm:flex-row'} items-center p-4 hover:shadow-2xl transition-shadow duration-300`}
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={Image1}
-                                    alt={destination.name}
+                                    src={destination.photos && destination.photos.length > 0 ? destination.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
@@ -726,7 +723,7 @@ const Destination = () => {
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
+                                    {destination.description}
                                 </p>
 
                                 <div className="mb-4">
@@ -760,7 +757,7 @@ const Destination = () => {
                                         </button>
                                     </Link>
                                 </div>
-                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">Last updated 2 hours ago</p>
+                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">{destination.updatedOn}</p>
                             </div>
                         </div>
                     ))}
@@ -768,12 +765,19 @@ const Destination = () => {
 
 
 
+                {paginatedDestinations.map(destination => (
+                    <div key={destination.id}>
+                    </div>
+                ))}
                 {totalPages > 1 && (
                     <div className="flex justify-center items-center mt-8">
                         {Array.from({ length: totalPages }, (_, i) => (
                             <button
                                 key={i}
-                                onClick={() => handlePageChange(i + 1)}
+                                onClick={() => {
+                                    setCurrentPage(i + 1);
+                                    window.scrollTo(0, 0); 
+                                }}
                                 className={`mx-1 px-4 py-2 rounded-full ${currentPage === i + 1
                                     ? "bg-blue-500 text-white"
                                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -784,6 +788,7 @@ const Destination = () => {
                         ))}
                     </div>
                 )}
+
 
                 {destinations.length === 0 && (
                     <p className="text-center text-gray-500 mt-8">Loarding....</p>

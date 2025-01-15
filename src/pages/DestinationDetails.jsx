@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Image from '../assets/images/Home1.jpg';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import CarouselHome1 from '../assets/images/Home1.jpg'
-import CarouselHome2 from '../assets/images/Home2.jpg'
-import CarouselHome3 from '../assets/images/Home3.jpg'
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -16,23 +13,9 @@ const DestinationDetails = () => {
     const location = useLocation();
     const { destination } = location.state || {};
 
-    const carouselItems = [
-        {
-            image: CarouselHome1,
-        },
-        {
-            image: CarouselHome2,
-        },
-        {
-            image: CarouselHome3,
-        },
-        {
-            image: CarouselHome3,
-        },
-        {
-            image: CarouselHome3,
-        },
-    ];
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const [comments, setComments] = useState([
         {
@@ -103,6 +86,15 @@ const DestinationDetails = () => {
         setIsModalOpen(false);
     };
 
+    const [mapUrl, setMapUrl] = useState(() => {
+        const [lat, lng] = destination.googleMap.split(", ");
+        return `https://www.google.com/maps?q=${lat},${lng}&output=embed`;
+    });
+
+    const handleMapLoad = () => {
+        const [lat, lng] = destination.googleMap.split(", ");
+        setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
+    };
 
     return (
         <div className="bg-gray-100">
@@ -117,8 +109,17 @@ const DestinationDetails = () => {
                         <div className="flex items-center gap-3 justify-center mt-3">
                             <i className="fas fa-map-marker-alt text-orange-500 text-xl"></i>
                             <p>
-                                <span className="font-bold text-orange-500">Ohiya Devils StairCase</span>
+                                <span
+                                    className="font-bold text-orange-500 cursor-pointer"
+                                    onClick={() => {
+                                        const [lat, lng] = destination.googleMap.split(", ");
+                                        window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+                                    }}
+                                >
+                                    {destination.name}
+                                </span>
                             </p>
+
                         </div>
                     </div>
 
@@ -163,7 +164,7 @@ const DestinationDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{destination.openingHorurs}</span></p>
+                            <p>Open Time - <span className="font-bold">{destination.openTime}</span></p>
                         </div>
                     </div>
 
@@ -194,11 +195,12 @@ const DestinationDetails = () => {
                             <p>
                                 Phone Numbers -{" "}
                                 <span className="font-bold">
-                                    {Object.entries(destination.contactNumber)
+                                    {Object.entries(JSON.parse(destination.contactNumber))
                                         .map(([name, number]) => `${name}: ${number}`)
                                         .join(", ")}
                                 </span>
                             </p>
+
                         </div>
                     </div>
                 </div>
@@ -218,15 +220,14 @@ const DestinationDetails = () => {
                         pagination={{ clickable: true }}
                         loop={true}
                     >
-                        {carouselItems.map((item, index) => (
-                            <SwiperSlide key={index}>
+                        {destination.photos.map((photo) => (
+                            <SwiperSlide key={photo.id}>
                                 <div
                                     className="relative h-[300px] rounded-lg overflow-hidden shadow-lg cursor-pointer"
-                                    onClick={() => openModal(item.image)}
+                                    onClick={() => openModal(photo.url)}
                                 >
                                     <img
-                                        src={item.image}
-                                        alt={`Slide ${index + 1}`}
+                                        src={photo.url}
                                         className="object-cover w-full h-full"
                                     />
                                 </div>
@@ -267,25 +268,32 @@ const DestinationDetails = () => {
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{destination.name}</span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase."
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
-                                    Around the world are several natural and man-made formations that have earned the name "Devil's Staircase"...
+                                    {destination.description}
                                 </p>
                             </div>
 
                             <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4 text-center"> - Map Of  <span className="text-orange-500">{destination.name}</span> -</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center">
+                                    - Map Of <span
+                                        className="text-orange-500 cursor-pointer"
+                                        onClick={() => {
+                                            const [lat, lng] = destination.googleMap.split(", ");
+                                            window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+                                        }}
+                                    >
+                                        {destination.name}
+                                    </span> -
+                                </h2>
                                 <a
-                                    href={destination.googleMap}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    href="#"
+                                    onClick={() => {
+                                        const [lat, lng] = destination.googleMap.split(", ");
+                                        window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+                                    }}
                                     className="block"
                                 >
                                     <iframe
-                                        src={`https://www.google.com/maps/embed?pb=${encodeURIComponent(destination.googleMap)}`}
+                                        src={mapUrl}
                                         title="Map"
                                         className="w-full h-80 lg:h-96 border-0 rounded-lg"
                                     ></iframe>
