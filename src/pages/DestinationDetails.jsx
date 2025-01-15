@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { useLocation } from "react-router-dom";
+import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaGlobe } from 'react-icons/fa';
 
 const DestinationDetails = () => {
     const location = useLocation();
@@ -96,6 +97,14 @@ const DestinationDetails = () => {
         setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
     };
 
+    const iconMap = {
+        webUrl: <FaGlobe />,
+        twitter: <FaTwitter />,
+        youtube: <FaYoutube />,
+        facebook: <FaFacebook />,
+        instagram: <FaInstagram />
+    };
+
     return (
         <div className="bg-gray-100">
             <div className="bg-gray-50 py-8">
@@ -168,7 +177,7 @@ const DestinationDetails = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8 text-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
                             <p>
@@ -183,9 +192,22 @@ const DestinationDetails = () => {
 
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-globe text-gray-600 text-xl"></i>
-                            <p>No Website</p>
+                            <p>Social Media -</p>
+                            {Object.entries(destination.socialMediaLinksJson).map(([key, url]) => (
+                                url ? (
+                                    <a
+                                        key={key}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 hover:text-blue-700"
+                                    >
+                                        {iconMap[key]}
+                                    </a>
+                                ) : null
+                            ))}
                         </div>
+
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
@@ -195,7 +217,7 @@ const DestinationDetails = () => {
                             <p>
                                 Phone Numbers -{" "}
                                 <span className="font-bold">
-                                    {Object.entries(JSON.parse(destination.contactNumber))
+                                    {Object.entries(destination.contactNumber)
                                         .map(([name, number]) => `${name}: ${number}`)
                                         .join(", ")}
                                 </span>

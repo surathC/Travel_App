@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import Image1 from '../assets/images/Home1.jpg'
 import {
     HeartIcon,
     AdjustmentsHorizontalIcon,
@@ -366,7 +365,7 @@ const Destination = () => {
     useEffect(() => {
         const fetchDestinations = async () => {
             try {
-                const response = await axios.get(`${API_URL}destinations`, {
+                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
@@ -434,7 +433,6 @@ const Destination = () => {
         applyFilters();
     }, [destinations, selectedOptions]);
 
-    const DriveLink = 'https://lh3.google.com/u/0/d/1U36gDhh3nJl7mJ00mKisW9RsOYLSgaxs=w1920-h945-iv1'
 
     return (
         <>
