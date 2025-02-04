@@ -24,10 +24,10 @@ const navigation = [
 
 const mainNavigation = [
   { name: "Destinations", href: "/destination", current: false },
-  { name: "Activities", href: "#", current: false },
-  { name: "Services", href: "#", current: false },
+  { name: "Activities", href: "/activity", current: false },
+  { name: "Services", href: "/service", current: false },
   { name: "Events", href: "#", current: false },
-  { name: "Find Guide", href: "#", current: false },
+  { name: "Find Guide", href: "/findGuide", current: false },
   { name: "Food", href: "#", current: false },
   { name: "Accomadations", href: "#", current: false },
   { name: "Plan Your Trip", href: "#", current: false },

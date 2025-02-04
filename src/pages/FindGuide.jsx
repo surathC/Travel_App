@@ -8,35 +8,28 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Destination = () => {
+const FindGuide = () => {
     const [isVerticalLayout, setIsVerticalLayout] = useState(false);
     const [isMaxLayout, setIsMaxLayout] = useState(true);
 
-    const [destinations, setDestinations] = useState([]);
+    const [findGuides, setfindGuides] = useState([]);
     const API_URL = process.env.REACT_APP_API_URL;
     const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
     const mainFilters = [
         "District",
         "City",
-        "Duration",
         "Main Category",
         "Sub Category",
-        "Transport Method",
-        "Estimated Explore Time",
-        "Traveler Type",
     ];
 
     const [filterData, setFilterData] = useState({
         District: [],
         City: [],
-        Duration: [],
         "Main Category": [],
         "Sub Category": [],
-        "Transport Method": [],
-        "Estimated Explore Time": [],
-        "Traveler Type": [],
     });
+
     const [activeFilter, setActiveFilter] = useState(null);
     const [selectedOptions, setSelectedOptions] = useState({});
     const [loading, setLoading] = useState(false);
@@ -44,7 +37,7 @@ const Destination = () => {
     const [searchQueries, setSearchQueries] = useState({});
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [cities, setCities] = useState([]);
-    const [filteredDestinations, setFilteredDestinations] = useState([]);
+    const [filteredfindGuides, setFilteredfindGuides] = useState([]);
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -64,14 +57,6 @@ const Destination = () => {
     };
 
     const [categories, setCategories] = useState([
-        {
-            label: "Collection Sri Lanka Trips",
-            items: [],
-        },
-        {
-            label: "Target a Specific Area",
-            items: [],
-        },
         {
             label: "Category Wise",
             items: [],
@@ -113,7 +98,6 @@ const Destination = () => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
 
     useEffect(() => {
         const fetchDistricts = async () => {
@@ -173,19 +157,6 @@ const Destination = () => {
         });
     };
 
-    const handleModalCheckboxChange = (filter, option) => {
-        setSelectedOptions((prev) => {
-            const current = prev[filter] || [];
-            const updated = current.includes(option)
-                ? current.filter((item) => item !== option)
-                : [...current, option];
-
-            // After updating the selected options, automatically load the data with the new selection
-            loadDataWithFilters({ ...prev, [filter]: updated });
-
-            return { ...prev, [filter]: updated };
-        });
-    };
     const handleDistrictChange = (districtId) => {
         setSelectedDistrict(districtId);
         setSelectedOptions((prev) => {
@@ -215,22 +186,9 @@ const Destination = () => {
     };
 
     const handleShowResults = () => {
-        // Call a function to load data based on selected filters
-        loadDataWithFilters(selectedOptions);
-
-        // Close the modal
+        console.log("Selected Options:", selectedOptions);
         setIsModalOpen(false);
     };
-
-    const loadDataWithFilters = (selectedOptions) => {
-        // Example logic to handle data loading
-        // You can fetch the filtered data from an API or handle the logic here
-        console.log('Loading data with selected filters:', selectedOptions);
-    };
-    // const handleShowResults = () => {
-    //     console.log("Selected Options:", selectedOptions);
-    //     setIsModalOpen(false);
-    // };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -304,166 +262,71 @@ const Destination = () => {
     }, [API_URL, ACCESS_TOKEN]);
 
 
-    useEffect(() => {
-        const fetchTravelTypes = async () => {
-            try {
-                const response = await axios.get(
-                    `${API_URL}destinations/travel-types`,
-                    {
-                        headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
-                    }
-                );
-
-                setFilterData((prevData) => ({
-                    ...prevData,
-                    "Traveler Type": response.data.map((type) => ({
-                        id: type.id,
-                        name: type.name,
-                    })),
-                }));
-            } catch (error) {
-                console.error("Error fetching travel types:", error);
-            }
-        };
-
-        fetchTravelTypes();
-    }, [API_URL, ACCESS_TOKEN]);
-
-    useEffect(() => {
-        const fetchTravelTypes = async () => {
-            try {
-                const response = await axios.get(
-                    `${API_URL}destinations/transport-methods`,
-                    {
-                        headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
-                    }
-                );
-
-                setFilterData((prevData) => ({
-                    ...prevData,
-                    "Transport Method": response.data.map((type) => ({
-                        id: type.id,
-                        name: type.description,
-                    })),
-                }));
-            } catch (error) {
-                console.error("Error fetching travel types:", error);
-            }
-        };
-
-        fetchTravelTypes();
-    }, [API_URL, ACCESS_TOKEN]);
-
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
 
-    const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredfindGuides.length / itemsPerPage);
 
-    const paginatedDestinations = filteredDestinations.slice(
+    const paginatedfindGuides = filteredfindGuides.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
 
     useEffect(() => {
-        const fetchDestinations = async () => {
+        const fetchfindGuides = async () => {
             try {
-                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
+                const response = await axios.get(`${API_URL}findGuides?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
                 });
                 if (response.data && response.data.items) {
-                    setDestinations(response.data.items);
+                    setfindGuides(response.data.items);
                 } else {
                     console.error("Unexpected response structure:", response.data);
                 }
             } catch (error) {
-                console.error("Error fetching destinations:", error);
+                console.error("Error fetching findGuides:", error);
             }
         };
 
-        fetchDestinations();
+        fetchfindGuides();
     }, [API_URL, ACCESS_TOKEN]);
 
     useEffect(() => {
         const applyFilters = () => {
-            if (!destinations.length) return;
+            if (!findGuides.length) return;
 
-            const filtered = destinations.filter((destination) => {
+            const filtered = findGuides.filter((findGuide) => {
                 return mainFilters.every((filter) => {
                     if (!selectedOptions[filter] || !selectedOptions[filter].length) {
                         return true;
                     }
                     if (filter === "District") {
-                        return selectedOptions[filter].includes(destination.district?.name);
+                        return selectedOptions[filter].includes(findGuide.district?.name);
                     }
                     if (filter === "City") {
-                        return selectedOptions[filter].includes(destination.city?.id);
-                    }
-                    if (filter === "Duration") {
-                        return selectedOptions[filter].includes(destination.duration);
+                        return selectedOptions[filter].includes(findGuide.findGuideCities?.name);
                     }
                     if (filter === "Main Category") {
-                        const mainCategoryName = destination.subCategories?.[0]?.category?.name;
-                        return selectedOptions[filter].includes(mainCategoryName);
+                        return findGuide.categories?.some((category) =>
+                            selectedOptions[filter].includes(category.name)
+                        );
                     }
                     if (filter === "Sub Category") {
-                        return destination.subCategories?.some((subCategory) =>
-                            selectedOptions[filter].includes(subCategory.name)
-                        );
-                    }
-                    if (filter === "Transport Method") {
-                        return destination.bestTransportMethodDestinations?.some((method) =>
-                            selectedOptions[filter].includes(method.description)
-                        );
-                    }
-                    if (filter === "Estimated Explore Time") {
-                        return selectedOptions[filter].includes(destination.exploreTime);
-                    }
-                    if (filter === "Traveler Type") {
-                        return destination.travelTypes?.some((type) =>
-                            selectedOptions[filter].includes(type.name)
+                        return findGuide.categories?.some((category) =>
+                            selectedOptions[filter].includes(category.name)
                         );
                     }
                     return true;
                 });
             });
 
-            setFilteredDestinations(filtered);
+            setFilteredfindGuides(filtered);
         };
 
         applyFilters();
-    }, [destinations, selectedOptions]);
-
-    const [searchTerm, setSearchTerm] = useState("");
-
-    useEffect(() => {
-        if (searchTerm.trim() === "") {
-            setFilteredDestinations(destinations);
-        } else {
-            const filtered = destinations.filter((destination) => {
-                const searchLower = searchTerm.toLowerCase();
-
-                return (
-                    destination.name.toLowerCase().includes(searchLower) ||
-                    destination.desCode.toLowerCase().includes(searchLower) ||
-                    destination.description.toLowerCase().includes(searchLower) ||
-                    destination.district?.name.toLowerCase().includes(searchLower) ||
-                    destination.travelTypes.some((type) => type.name.toLowerCase().includes(searchLower)) ||
-                    destination.subCategories.some(
-                        (sub) =>
-                            sub.name.toLowerCase().includes(searchLower) ||
-                            sub.category?.name.toLowerCase().includes(searchLower)
-                    ) ||
-                    destination.bestTransportMethodDestinations.some((method) =>
-                        method.description.toLowerCase().includes(searchLower)
-                    )
-                );
-            });
-
-            setFilteredDestinations(filtered);
-        }
-    }, [searchTerm, destinations]);
+    }, [findGuides, selectedOptions]);
 
 
     return (
@@ -472,10 +335,8 @@ const Destination = () => {
                 <div className="w-full flex justify-center mb-6">
                     <input
                         type="text"
-                        placeholder="Search your destination..."
+                        placeholder="Search your find guides..."
                         className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
 
@@ -622,16 +483,17 @@ const Destination = () => {
                         </div>
                     ))}
 
-                    <div className="flex items-center">
+                    <div className="ml-auto">
                         <button
                             onClick={() => setIsModalOpen(true)}
-                            className="px-6 py-2 text-black rounded-md hover:bg-blue-700 border hover:text-white ml-20 flex items-center"
+                            className="px-6 py-2 text-black rounded-md hover:bg-blue-700 border mr-5 hover:text-white flex items-center"
                         >
                             <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2" />
                             Filters
                         </button>
                     </div>
 
+                    {/* Filter Modal */}
                     {isModalOpen && (
                         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
                             <div className="bg-white rounded-lg shadow-lg w-11/12 sm:w-2/6 max-h-[80vh] overflow-y-auto p-6 relative">
@@ -682,10 +544,11 @@ const Destination = () => {
                                                                 type="checkbox"
                                                                 id={`${filter}-${item.name}`}
                                                                 checked={
-                                                                    selectedOptions[filter]?.includes(item.name) || false
+                                                                    selectedOptions[filter]?.includes(item.name) ||
+                                                                    false
                                                                 }
                                                                 onChange={() =>
-                                                                    handleModalCheckboxChange(filter, item.name)
+                                                                    handleCheckboxChange(filter, item.name)
                                                                 }
                                                                 className="mr-2"
                                                             />
@@ -711,10 +574,10 @@ const Destination = () => {
                                         Reset All
                                     </button>
                                     <button
-                                        onClick={() => setIsModalOpen(false)}  // Close modal immediately
+                                        onClick={handleShowResults}
                                         className="px-4 py-2 bg-blue-500 text-white rounded-md"
                                     >
-                                        Close
+                                        Show Results
                                     </button>
                                 </div>
                             </div>
@@ -735,33 +598,32 @@ const Destination = () => {
                 </div>
 
                 <div className={`grid ${isMaxLayout ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-6`}>
-                    {paginatedDestinations.map((destination, index) => (
+                    {paginatedfindGuides.map((findGuide, index) => (
                         <div
                             key={index}
                             className={`bg-white shadow-lg rounded-lg overflow-hidden flex ${isVerticalLayout ? 'flex-col' : 'flex-col sm:flex-row'} items-center p-4 hover:shadow-2xl transition-shadow duration-300`}
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={destination.photos && destination.photos.length > 0 ? destination.photos[0].url : 'default-image-url.jpg'}
+                                    src={findGuide.photos && findGuide.photos.length > 0 ? findGuide.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{destination.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{findGuide.name}</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {destination.subCategories
-                                        .map(subCategory => `${subCategory.category.name}/${subCategory.name}`)
-                                        .join(", ")}
+                                    {findGuide.categories.map(category => category.name).join(", ")}
                                 </p>
+
 
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
                                     <span className="mr-2">
-                                        <i className="far fa-clock"></i> {destination.suggestionTime}
+                                        <i className="far fa-clock"></i> {findGuide.suggestionTime}
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {destination.description}
+                                    {findGuide.description}
                                 </p>
 
                                 <div className="mb-4">
@@ -771,7 +633,7 @@ const Destination = () => {
                                             <svg
                                                 key={index}
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                fill={index < destination.rating ? "yellow" : "none"}
+                                                fill={index < findGuide.rating ? "yellow" : "none"}
                                                 stroke="currentColor"
                                                 className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
                                                 viewBox="0 0 24 24"
@@ -789,13 +651,13 @@ const Destination = () => {
                                     <button className="bg-red-500 text-white px-4 py-2 text-sm rounded-full flex items-center gap-2 hover:bg-red-600">
                                         <HeartIcon className="w-5 h-5" /> Add to Favorites
                                     </button>
-                                    <Link to='/destinationDetails' state={{ destination }}>
+                                    <Link to='/findGuideDetails' state={{ findGuide }}>
                                         <button className="bg-blue-500 text-white px-4 py-2 text-sm rounded-full hover:bg-blue-600">
                                             More details
                                         </button>
                                     </Link>
                                 </div>
-                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">{destination.updatedOn}</p>
+                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">{findGuide.updatedOn}</p>
                             </div>
                         </div>
                     ))}
@@ -803,8 +665,8 @@ const Destination = () => {
 
 
 
-                {paginatedDestinations.map(destination => (
-                    <div key={destination.id}>
+                {paginatedfindGuides.map(findGuide => (
+                    <div key={findGuide.id}>
                     </div>
                 ))}
                 {totalPages > 1 && (
@@ -828,7 +690,7 @@ const Destination = () => {
                 )}
 
 
-                {destinations.length === 0 && (
+                {findGuides.length === 0 && (
                     <p className="text-center text-gray-500 mt-8">Loarding....</p>
                 )}
             </div>
@@ -836,4 +698,4 @@ const Destination = () => {
     );
 };
 
-export default Destination;
+export default FindGuide;
