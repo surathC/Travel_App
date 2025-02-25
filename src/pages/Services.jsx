@@ -21,6 +21,7 @@ const Service = () => {
         "City",
         "Main Category",
         "Sub Category",
+        "Pupular Area"
     ];
 
     const [filterData, setFilterData] = useState({
@@ -28,6 +29,7 @@ const Service = () => {
         City: [],
         "Main Category": [],
         "Sub Category": [],
+        "Pupular Area": []
     });
 
     const [activeFilter, setActiveFilter] = useState(null);

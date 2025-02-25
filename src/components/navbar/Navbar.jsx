@@ -26,10 +26,10 @@ const mainNavigation = [
   { name: "Destinations", href: "/destination", current: false },
   { name: "Activities", href: "/activity", current: false },
   { name: "Services", href: "/service", current: false },
-  { name: "Events", href: "#", current: false },
+  { name: "Events", href: "/event", current: false },
   { name: "Find Guide", href: "/findGuide", current: false },
-  { name: "Food", href: "#", current: false },
-  { name: "Accomadations", href: "#", current: false },
+  { name: "Food", href: "/food", current: false },
+  { name: "Accomadations", href: "/accomadation", current: false },
   { name: "Plan Your Trip", href: "#", current: false },
 ];
 function classNames(...classes) {

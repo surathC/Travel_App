@@ -11,6 +11,12 @@ import Service from "./pages/Services";
 import ServiceDetails from "./pages/ServicesDetails";
 import FindGuide from "./pages/FindGuide";
 import FindGuideDetails from "./pages/FindGuideDetails";
+import Event from "./pages/Events";
+import EventDetails from "./pages/EventDetails";
+import Food from "./pages/Food";
+import FoodDetails from "./pages/FoodDetails";
+import Accomadation from "./pages/Accomadation";
+import AccomadationDetails from "./pages/AccomadationDetails";
 
 function App() {
   return (
@@ -28,6 +34,12 @@ function App() {
         <Route path="/serviceDetails" element={<ServiceDetails />} />
         <Route path="/findGuide" element={<FindGuide />} />
         <Route path="/findGuideDetails" element={<FindGuideDetails />} />
+        <Route path="/event" element={<Event />} />
+        <Route path="/eventDetails" element={<EventDetails />} />
+        <Route path="/food" element={<Food />} />
+        <Route path="/foodDetails" element={<FoodDetails />} />
+        <Route path="/accomadation" element={<Accomadation />} />
+        <Route path="/accomadationDetails" element={<AccomadationDetails />} />
 
       </Routes>
       <Footer />

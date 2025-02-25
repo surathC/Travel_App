@@ -8,35 +8,32 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Destination = () => {
+const Event = () => {
     const [isVerticalLayout, setIsVerticalLayout] = useState(false);
     const [isMaxLayout, setIsMaxLayout] = useState(true);
 
-    const [destinations, setDestinations] = useState([]);
+    const [events, setevents] = useState([]);
     const API_URL = process.env.REACT_APP_API_URL;
     const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
     const mainFilters = [
+        "Category Wise",
         "District",
         "City",
-        "Duration",
-        "Main Category",
-        "Sub Category",
-        "Transport Method",
-        "Estimated Explore Time",
-        "Traveler Type",
+        "Today / Tomorrow / Weekend",
+        "Calender Date",
+        "Popular Area",
     ];
 
     const [filterData, setFilterData] = useState({
+        "Category Wise": [],
         District: [],
         City: [],
-        Duration: [],
-        "Main Category": [],
-        "Sub Category": [],
-        "Transport Method": [],
-        "Estimated Explore Time": [],
-        "Traveler Type": [],
+        "Today / Tomorrow / Weekend": [],
+        "Calender Date": [],
+        "Popular Area": [],
     });
+
     const [activeFilter, setActiveFilter] = useState(null);
     const [selectedOptions, setSelectedOptions] = useState({});
     const [loading, setLoading] = useState(false);
@@ -44,7 +41,7 @@ const Destination = () => {
     const [searchQueries, setSearchQueries] = useState({});
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [cities, setCities] = useState([]);
-    const [filteredDestinations, setFilteredDestinations] = useState([]);
+    const [filteredevents, setFilteredevents] = useState([]);
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -65,15 +62,19 @@ const Destination = () => {
 
     const [categories, setCategories] = useState([
         {
-            label: "Collection Sri Lanka Trips",
+            label: "Traditional",
             items: [],
         },
         {
-            label: "Target a Specific Area",
+            label: "Musical Indoor Concert",
             items: [],
         },
         {
-            label: "Category Wise",
+            label: "Musical Outdoor Concert",
+            items: [],
+        },
+        {
+            label: "Volunteer Programs",
             items: [],
         },
         {
@@ -113,7 +114,6 @@ const Destination = () => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
 
     useEffect(() => {
         const fetchDistricts = async () => {
@@ -173,17 +173,6 @@ const Destination = () => {
         });
     };
 
-    const handleModalCheckboxChange = (filter, option) => {
-        setSelectedOptions((prev) => {
-            const current = prev[filter] || [];
-            const updated = current.includes(option)
-                ? current.filter((item) => item !== option)
-                : [...current, option];
-            loadDataWithFilters({ ...prev, [filter]: updated });
-
-            return { ...prev, [filter]: updated };
-        });
-    };
     const handleDistrictChange = (districtId) => {
         setSelectedDistrict(districtId);
         setSelectedOptions((prev) => {
@@ -213,18 +202,9 @@ const Destination = () => {
     };
 
     const handleShowResults = () => {
-        loadDataWithFilters(selectedOptions);
+        console.log("Selected Options:", selectedOptions);
         setIsModalOpen(false);
     };
-
-    const loadDataWithFilters = (selectedOptions) => {
-        console.log('Loading data with selected filters:', selectedOptions);
-    };
-
-    // const handleShowResults = () => {
-    //     console.log("Selected Options:", selectedOptions);
-    //     setIsModalOpen(false);
-    // };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -298,166 +278,99 @@ const Destination = () => {
     }, [API_URL, ACCESS_TOKEN]);
 
 
-    useEffect(() => {
-        const fetchTravelTypes = async () => {
-            try {
-                const response = await axios.get(
-                    `${API_URL}destinations/travel-types`,
-                    {
-                        headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
-                    }
-                );
-
-                setFilterData((prevData) => ({
-                    ...prevData,
-                    "Traveler Type": response.data.map((type) => ({
-                        id: type.id,
-                        name: type.name,
-                    })),
-                }));
-            } catch (error) {
-                console.error("Error fetching travel types:", error);
-            }
-        };
-
-        fetchTravelTypes();
-    }, [API_URL, ACCESS_TOKEN]);
-
-    useEffect(() => {
-        const fetchTravelTypes = async () => {
-            try {
-                const response = await axios.get(
-                    `${API_URL}destinations/transport-methods`,
-                    {
-                        headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
-                    }
-                );
-
-                setFilterData((prevData) => ({
-                    ...prevData,
-                    "Transport Method": response.data.map((type) => ({
-                        id: type.id,
-                        name: type.description,
-                    })),
-                }));
-            } catch (error) {
-                console.error("Error fetching travel types:", error);
-            }
-        };
-
-        fetchTravelTypes();
-    }, [API_URL, ACCESS_TOKEN]);
-
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
 
-    const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredevents.length / itemsPerPage);
 
-    const paginatedDestinations = filteredDestinations.slice(
+    const paginatedevents = filteredevents.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
 
     useEffect(() => {
-        const fetchDestinations = async () => {
+        const fetchevents = async () => {
             try {
-                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
+                const response = await axios.get(`${API_URL}events?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
                 });
                 if (response.data && response.data.items) {
-                    setDestinations(response.data.items);
+                    setevents(response.data.items);
                 } else {
                     console.error("Unexpected response structure:", response.data);
                 }
             } catch (error) {
-                console.error("Error fetching destinations:", error);
+                console.error("Error fetching events:", error);
             }
         };
 
-        fetchDestinations();
+        fetchevents();
     }, [API_URL, ACCESS_TOKEN]);
 
     useEffect(() => {
         const applyFilters = () => {
-            if (!destinations.length) return;
+            if (!events.length) return;
 
-            const filtered = destinations.filter((destination) => {
+            const filtered = events.filter((event) => {
                 return mainFilters.every((filter) => {
                     if (!selectedOptions[filter] || !selectedOptions[filter].length) {
                         return true;
                     }
                     if (filter === "District") {
-                        return selectedOptions[filter].includes(destination.district?.name);
+                        return selectedOptions[filter].includes(event.district?.name);
                     }
                     if (filter === "City") {
-                        return selectedOptions[filter].includes(destination.city?.id);
-                    }
-                    if (filter === "Duration") {
-                        return selectedOptions[filter].includes(destination.duration);
+                        return selectedOptions[filter].includes(event.eventCities?.name);
                     }
                     if (filter === "Main Category") {
-                        const mainCategoryName = destination.subCategories?.[0]?.category?.name;
-                        return selectedOptions[filter].includes(mainCategoryName);
+                        return event.categories?.some((category) =>
+                            selectedOptions[filter].includes(category.name)
+                        );
                     }
                     if (filter === "Sub Category") {
-                        return destination.subCategories?.some((subCategory) =>
-                            selectedOptions[filter].includes(subCategory.name)
-                        );
-                    }
-                    if (filter === "Transport Method") {
-                        return destination.bestTransportMethodDestinations?.some((method) =>
-                            selectedOptions[filter].includes(method.description)
-                        );
-                    }
-                    if (filter === "Estimated Explore Time") {
-                        return selectedOptions[filter].includes(destination.exploreTime);
-                    }
-                    if (filter === "Traveler Type") {
-                        return destination.travelTypes?.some((type) =>
-                            selectedOptions[filter].includes(type.name)
+                        return event.categories?.some((category) =>
+                            selectedOptions[filter].includes(category.name)
                         );
                     }
                     return true;
                 });
             });
 
-            setFilteredDestinations(filtered);
+            setFilteredevents(filtered);
         };
 
         applyFilters();
-    }, [destinations, selectedOptions]);
+    }, [events, selectedOptions]);
 
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         if (searchTerm.trim() === "") {
-            setFilteredDestinations(destinations);
+            setFilteredevents(events);
         } else {
-            const filtered = destinations.filter((destination) => {
-                const searchLower = searchTerm.toLowerCase();
+            const searchLower = searchTerm.toLowerCase();
 
+            const filtered = events.filter((event) => {
                 return (
-                    destination.name.toLowerCase().includes(searchLower) ||
-                    destination.desCode.toLowerCase().includes(searchLower) ||
-                    destination.description.toLowerCase().includes(searchLower) ||
-                    destination.district?.name.toLowerCase().includes(searchLower) ||
-                    destination.travelTypes.some((type) => type.name.toLowerCase().includes(searchLower)) ||
-                    destination.subCategories.some(
+                    event.name.toLowerCase().includes(searchLower) ||
+                    event.eventCode.toLowerCase().includes(searchLower) ||
+                    (event.district?.name && event.district.name.toLowerCase().includes(searchLower)) ||
+                    event.subCategories.some(
                         (sub) =>
                             sub.name.toLowerCase().includes(searchLower) ||
                             sub.category?.name.toLowerCase().includes(searchLower)
                     ) ||
-                    destination.bestTransportMethodDestinations.some((method) =>
-                        method.description.toLowerCase().includes(searchLower)
-                    )
+                    (event.cities && event.cities.some((city) => city.name.toLowerCase().includes(searchLower)))
                 );
             });
 
-            setFilteredDestinations(filtered);
+            setFilteredevents(filtered);
         }
-    }, [searchTerm, destinations]);
+    }, [searchTerm, events]);
+
+
 
 
     return (
@@ -466,7 +379,7 @@ const Destination = () => {
                 <div className="w-full flex justify-center mb-6">
                     <input
                         type="text"
-                        placeholder="Search your destination..."
+                        placeholder="Search your events..."
                         className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -626,6 +539,7 @@ const Destination = () => {
                         </button>
                     </div>
 
+                    {/* Filter Modal */}
                     {isModalOpen && (
                         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
                             <div className="bg-white rounded-lg shadow-lg w-11/12 sm:w-2/6 max-h-[80vh] overflow-y-auto p-6 relative">
@@ -676,10 +590,11 @@ const Destination = () => {
                                                                 type="checkbox"
                                                                 id={`${filter}-${item.name}`}
                                                                 checked={
-                                                                    selectedOptions[filter]?.includes(item.name) || false
+                                                                    selectedOptions[filter]?.includes(item.name) ||
+                                                                    false
                                                                 }
                                                                 onChange={() =>
-                                                                    handleModalCheckboxChange(filter, item.name)
+                                                                    handleCheckboxChange(filter, item.name)
                                                                 }
                                                                 className="mr-2"
                                                             />
@@ -705,10 +620,10 @@ const Destination = () => {
                                         Reset All
                                     </button>
                                     <button
-                                        onClick={() => setIsModalOpen(false)}  // Close modal immediately
+                                        onClick={handleShowResults}
                                         className="px-4 py-2 bg-blue-500 text-white rounded-md"
                                     >
-                                        Close
+                                        Show Results
                                     </button>
                                 </div>
                             </div>
@@ -729,33 +644,34 @@ const Destination = () => {
                 </div>
 
                 <div className={`grid ${isMaxLayout ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-6`}>
-                    {paginatedDestinations.map((destination, index) => (
+                    {paginatedevents.map((event, index) => (
                         <div
                             key={index}
                             className={`bg-white shadow-lg rounded-lg overflow-hidden flex ${isVerticalLayout ? 'flex-col' : 'flex-col sm:flex-row'} items-center p-4 hover:shadow-2xl transition-shadow duration-300`}
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={destination.photos && destination.photos.length > 0 ? destination.photos[0].url : 'default-image-url.jpg'}
+                                    src={event.photos && event.photos.length > 0 ? event.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{destination.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{event.name}</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {destination.subCategories
+                                    {event.subCategories
                                         .map(subCategory => `${subCategory.category.name}/${subCategory.name}`)
                                         .join(", ")}
                                 </p>
 
+
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
                                     <span className="mr-2">
-                                        <i className="far fa-clock"></i> {destination.suggestionTime}
+                                        <i className="far fa-clock"></i> {event.suggestionTime}
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {destination.description}
+                                    {event.description}
                                 </p>
 
                                 <div className="mb-4">
@@ -765,7 +681,7 @@ const Destination = () => {
                                             <svg
                                                 key={index}
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                fill={index < destination.rating ? "yellow" : "none"}
+                                                fill={index < event.rating ? "yellow" : "none"}
                                                 stroke="currentColor"
                                                 className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
                                                 viewBox="0 0 24 24"
@@ -783,13 +699,13 @@ const Destination = () => {
                                     <button className="bg-red-500 text-white px-4 py-2 text-sm rounded-full flex items-center gap-2 hover:bg-red-600">
                                         <HeartIcon className="w-5 h-5" /> Add to Favorites
                                     </button>
-                                    <Link to='/destinationDetails' state={{ destination }}>
+                                    <Link to='/eventDetails' state={{ event }}>
                                         <button className="bg-blue-500 text-white px-4 py-2 text-sm rounded-full hover:bg-blue-600">
                                             More details
                                         </button>
                                     </Link>
                                 </div>
-                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">{destination.updatedOn}</p>
+                                <p className="text-gray-500 mt-5 text-xs sm:text-sm">{event.updatedOn}</p>
                             </div>
                         </div>
                     ))}
@@ -797,8 +713,8 @@ const Destination = () => {
 
 
 
-                {paginatedDestinations.map(destination => (
-                    <div key={destination.id}>
+                {paginatedevents.map(event => (
+                    <div key={event.id}>
                     </div>
                 ))}
                 {totalPages > 1 && (
@@ -822,7 +738,7 @@ const Destination = () => {
                 )}
 
 
-                {destinations.length === 0 && (
+                {events.length === 0 && (
                     <p className="text-center text-gray-500 mt-8">Loarding....</p>
                 )}
             </div>
@@ -830,4 +746,4 @@ const Destination = () => {
     );
 };
 
-export default Destination;
+export default Event;
