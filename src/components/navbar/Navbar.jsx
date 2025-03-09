@@ -9,9 +9,13 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from '../../assets/images/Logo.png'
+import { logOut } from '../features/Auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: "Home", href: "#", current: false },
+  { name: "Home", href: "/", current: false },
   { name: "News", href: "#", current: false },
   { name: "Advertisment", href: "#", current: false },
   { name: "About Sri Lanka", href: "#", current: false },
@@ -36,7 +40,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+export default function Navbar({ token }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    navigate("/login");
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div>
@@ -112,8 +124,7 @@ export default function Navbar() {
             </div>
 
             {/* Notification and Profile Menu */}
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              {/* Profile dropdown */}
+            {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <Menu as="div" className="relative ml-3">
                 <div>
                   <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -150,8 +161,30 @@ export default function Navbar() {
                       Sign out
                     </a>
                   </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="/login"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Login
+                    </a>
+                  </MenuItem>
                 </MenuItems>
               </Menu>
+            </div> */}
+           <div className="flex items-center space-x-4">
+              {token ? (
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                  <button>Login</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

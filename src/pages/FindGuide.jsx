@@ -194,20 +194,20 @@ const FindGuide = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}guides-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
                 const mainCategories = response.data.map((category) => ({
                     id: category.id,
-                    name: category.description,
+                    name: category.name,
                 }));
 
                 const subCategories = response.data.flatMap((category) =>
-                    category.subCategories.map((sub) => ({
+                    category.guideSubCategories.map((sub) => ({
                         id: sub.id,
-                        name: sub.description,
+                        name: sub.name,
                     }))
                 );
 
@@ -228,16 +228,16 @@ const FindGuide = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}guides-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
 
                 const transformedCategories = response.data.map((category) => ({
-                    main: category.description,
-                    sub: category.subCategories.map((sub) => ({
-                        label: sub.description,
+                    main: category.name,
+                    sub: category.guideSubCategories.map((sub) => ({
+                        label: sub.name,
                     })),
                 }));
 
@@ -275,7 +275,7 @@ const FindGuide = () => {
     useEffect(() => {
         const fetchfindGuides = async () => {
             try {
-                const response = await axios.get(`${API_URL}findGuides?pageSize=100`, {
+                const response = await axios.get(`${API_URL}guides?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
@@ -402,6 +402,12 @@ const FindGuide = () => {
                                                         className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
                                                         onClick={() => alert(`Selected: ${subCategory.label}`)}
                                                     >
+                                                        {/* Add the image here */}
+                                                        <img
+                                                            src={subCategory.photoUrl}
+                                                            alt={subCategory.label}
+                                                            className="w-6 h-6 rounded-full object-cover mr-3"
+                                                        />
                                                         {subCategory.label}
                                                     </div>
                                                 )
@@ -613,7 +619,7 @@ const FindGuide = () => {
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
                                 <h3 className="text-lg md:text-2xl font-bold text-gray-800">{findGuide.name}</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {findGuide.categories.map(category => category.name).join(", ")}
+                                    {findGuide.subCategories.map(category => category.name).join(", ")}
                                 </p>
 
 

@@ -196,20 +196,20 @@ const Service = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}service-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
                 const mainCategories = response.data.map((category) => ({
                     id: category.id,
-                    name: category.description,
+                    name: category.name,
                 }));
 
                 const subCategories = response.data.flatMap((category) =>
-                    category.subCategories.map((sub) => ({
+                    category.serviceSubCategories.map((sub) => ({
                         id: sub.id,
-                        name: sub.description,
+                        name: sub.name,
                     }))
                 );
 
@@ -230,16 +230,16 @@ const Service = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}service-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
 
                 const transformedCategories = response.data.map((category) => ({
-                    main: category.description,
-                    sub: category.subCategories.map((sub) => ({
-                        label: sub.description,
+                    main: category.name,
+                    sub: category.serviceSubCategories.map((sub) => ({
+                        label: sub.name,
                     })),
                 }));
 
@@ -429,6 +429,12 @@ const Service = () => {
                                                         className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
                                                         onClick={() => alert(`Selected: ${subCategory.label}`)}
                                                     >
+                                                        {/* Add the image here */}
+                                                        <img
+                                                            src={subCategory.photoUrl}
+                                                            alt={subCategory.label}
+                                                            className="w-6 h-6 rounded-full object-cover mr-3"
+                                                        />
                                                         {subCategory.label}
                                                     </div>
                                                 )

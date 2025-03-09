@@ -17,11 +17,28 @@ import Food from "./pages/Food";
 import FoodDetails from "./pages/FoodDetails";
 import Accomadation from "./pages/Accomadation";
 import AccomadationDetails from "./pages/AccomadationDetails";
+import Register from "./pages/User/Register";
+import Login from "./pages/User/Login";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from './components/features/Auth/authSlice';
+import { useSelector } from 'react-redux'; 
 
 function App() {
+  const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.auth.token);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (token && user) {
+      dispatch(setCredentials({ user, token }));
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-      <Navbar />
+       <Navbar token={token} />
 
       <Routes>
 
@@ -40,6 +57,9 @@ function App() {
         <Route path="/foodDetails" element={<FoodDetails />} />
         <Route path="/accomadation" element={<Accomadation />} />
         <Route path="/accomadationDetails" element={<AccomadationDetails />} />
+
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
       </Routes>
       <Footer />

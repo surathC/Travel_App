@@ -17,6 +17,7 @@ const Accomadation = () => {
     const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
     const mainFilters = [
+        "Category Wise",
         "District",
         "City",
         "Budget Type",
@@ -60,7 +61,7 @@ const Accomadation = () => {
 
     const [categories, setCategories] = useState([
         {
-            label: "Category Wise",
+            label: "Category",
             items: [],
         },
         {
@@ -294,6 +295,32 @@ const Accomadation = () => {
 
         fetchaccomadations();
     }, [API_URL, ACCESS_TOKEN]);
+
+    useEffect(() => {
+        const fetchTravelTypes = async () => {
+            try {
+                const response = await axios.get(
+                    `${API_URL}accommodations-facilities`,
+                    {
+                        headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+                    }
+                );
+
+                setFilterData((prevData) => ({
+                    ...prevData,
+                    "Facilities": response.data.map((type) => ({
+                        id: type.id,
+                        name: type.name,
+                    })),
+                }));
+            } catch (error) {
+                console.error("Error fetching travel types:", error);
+            }
+        };
+
+        fetchTravelTypes();
+    }, [API_URL, ACCESS_TOKEN]);
+
 
     useEffect(() => {
         const applyFilters = () => {

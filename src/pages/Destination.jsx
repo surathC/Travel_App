@@ -135,7 +135,6 @@ const Destination = () => {
 
     useEffect(() => {
         const fetchCities = async () => {
-            console.log(selectedDistrict)
             if (selectedDistrict) {
                 try {
                     const response = await axios.get(
@@ -230,20 +229,20 @@ const Destination = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}destinations-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
                 const mainCategories = response.data.map((category) => ({
                     id: category.id,
-                    name: category.description,
+                    name: category.name,
                 }));
 
                 const subCategories = response.data.flatMap((category) =>
-                    category.subCategories.map((sub) => ({
+                    category.destinationSubCategories.map((sub) => ({
                         id: sub.id,
-                        name: sub.description,
+                        name: sub.name,
                     }))
                 );
 
@@ -264,16 +263,16 @@ const Destination = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}destinations-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
 
                 const transformedCategories = response.data.map((category) => ({
-                    main: category.description,
-                    sub: category.subCategories.map((sub) => ({
-                        label: sub.description,
+                    main: category.name,
+                    sub: category.destinationSubCategories.map((sub) => ({
+                        label: sub.name,
                     })),
                 }));
 
@@ -302,7 +301,7 @@ const Destination = () => {
         const fetchTravelTypes = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/travel-types`,
+                    `${API_URL}destinations-travel-types`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
@@ -327,7 +326,7 @@ const Destination = () => {
         const fetchTravelTypes = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/transport-methods`,
+                    `${API_URL}destinations-transport-methods`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
@@ -337,7 +336,7 @@ const Destination = () => {
                     ...prevData,
                     "Transport Method": response.data.map((type) => ({
                         id: type.id,
-                        name: type.description,
+                        name: type.name,
                     })),
                 }));
             } catch (error) {
@@ -459,7 +458,6 @@ const Destination = () => {
         }
     }, [searchTerm, destinations]);
 
-
     return (
         <>
             <div className="bg-gray-100 py-8">
@@ -535,6 +533,12 @@ const Destination = () => {
                                                         className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
                                                         onClick={() => alert(`Selected: ${subCategory.label}`)}
                                                     >
+                                                        {/* Add the image here */}
+                                                        <img
+                                                            src={subCategory.photoUrl}
+                                                            alt={subCategory.label}
+                                                            className="w-6 h-6 rounded-full object-cover mr-3"
+                                                        />
                                                         {subCategory.label}
                                                     </div>
                                                 )

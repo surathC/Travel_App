@@ -17,10 +17,11 @@ const Food = () => {
     const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
     const mainFilters = [
+        "Category Wise",
         "District",
         "City",
-        "Main Category",
-        "Sub Category",
+        "Feature Wise",
+        "Popular Area",
     ];
 
     const [filterData, setFilterData] = useState({
@@ -58,7 +59,7 @@ const Food = () => {
 
     const [categories, setCategories] = useState([
         {
-            label: "Category Wise",
+            label: "Category",
             items: [],
         },
         {

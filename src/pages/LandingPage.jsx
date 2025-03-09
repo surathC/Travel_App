@@ -10,6 +10,9 @@ import CarouselHome2 from '../assets/videos/Video2.mp4'
 import CarouselHome3 from '../assets/videos/Video3.mp4'
 import Gallery from "../components/homeGallery/gallery";
 import MainCategory from "../components/mainCategory/mainCategory";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../components/features/Auth/authSlice';
 
 const LandingPage = () => {
 
@@ -117,6 +120,18 @@ const LandingPage = () => {
       description: "YES! Despite having been through a tumultuous few decades during the bitter civil war, Sri Lanka is an incredibly safe destination to travel to. In fact, we've often commented that both of our trips through the country were probably the safest travels we've ever had."
     },
   ];
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (token && user) {
+      dispatch(setCredentials({ user, token }));
+    }
+  }, [dispatch]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <main>

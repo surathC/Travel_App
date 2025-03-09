@@ -17,7 +17,6 @@ const Event = () => {
     const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
     const mainFilters = [
-        "Category Wise",
         "District",
         "City",
         "Today / Tomorrow / Weekend",
@@ -26,7 +25,6 @@ const Event = () => {
     ];
 
     const [filterData, setFilterData] = useState({
-        "Category Wise": [],
         District: [],
         City: [],
         "Today / Tomorrow / Weekend": [],
@@ -75,6 +73,10 @@ const Event = () => {
         },
         {
             label: "Volunteer Programs",
+            items: [],
+        },
+        {
+            label: "Category Wise",
             items: [],
         },
         {
@@ -210,20 +212,20 @@ const Event = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}events-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
                 const mainCategories = response.data.map((category) => ({
                     id: category.id,
-                    name: category.description,
+                    name: category.name,
                 }));
 
                 const subCategories = response.data.flatMap((category) =>
-                    category.subCategories.map((sub) => ({
+                    category.eventSubCategories.map((sub) => ({
                         id: sub.id,
-                        name: sub.description,
+                        name: sub.name,
                     }))
                 );
 
@@ -244,16 +246,16 @@ const Event = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}destinations/categories`,
+                    `${API_URL}events-categories`,
                     {
                         headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
                     }
                 );
 
                 const transformedCategories = response.data.map((category) => ({
-                    main: category.description,
-                    sub: category.subCategories.map((sub) => ({
-                        label: sub.description,
+                    main: category.name,
+                    sub: category.eventSubCategories.map((sub) => ({
+                        label: sub.name,
                     })),
                 }));
 
@@ -448,6 +450,12 @@ const Event = () => {
                                                         className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
                                                         onClick={() => alert(`Selected: ${subCategory.label}`)}
                                                     >
+                                                        {/* Add the image here */}
+                                                        <img
+                                                            src={subCategory.photoUrl}
+                                                            alt={subCategory.label}
+                                                            className="w-6 h-6 rounded-full object-cover mr-3"
+                                                        />
                                                         {subCategory.label}
                                                     </div>
                                                 )
