@@ -24,6 +24,10 @@ const Event = () => {
         "Popular Area",
     ];
 
+    const mainFilters1 = [
+        "Sub Category",
+    ];
+
     const [filterData, setFilterData] = useState({
         District: [],
         City: [],
@@ -244,6 +248,7 @@ const Event = () => {
 
     useEffect(() => {
         const fetchCategories = async () => {
+            setLoading(true); // Set loading to true when fetching starts
             try {
                 const response = await axios.get(
                     `${API_URL}events-categories`,
@@ -256,6 +261,7 @@ const Event = () => {
                     main: category.name,
                     sub: category.eventSubCategories.map((sub) => ({
                         label: sub.name,
+                        photoUrl: sub.photoUrl, // Assuming photoUrl is available in the response
                     })),
                 }));
 
@@ -273,6 +279,8 @@ const Event = () => {
                 });
             } catch (error) {
                 console.error("Error fetching categories:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -314,26 +322,49 @@ const Event = () => {
     useEffect(() => {
         const applyFilters = () => {
             if (!events.length) return;
-
             const filtered = events.filter((event) => {
                 return mainFilters.every((filter) => {
                     if (!selectedOptions[filter] || !selectedOptions[filter].length) {
                         return true;
                     }
-                    if (filter === "District") {
-                        return selectedOptions[filter].includes(event.district?.name);
-                    }
-                    if (filter === "City") {
-                        return selectedOptions[filter].includes(event.eventCities?.name);
-                    }
-                    if (filter === "Main Category") {
-                        return event.categories?.some((category) =>
-                            selectedOptions[filter].includes(category.name)
+                    // if (filter === "District") {
+                    //     return selectedOptions[filter].includes(event.district?.name);
+                    // }
+                    // if (filter === "City") {
+                    //     return selectedOptions[filter].includes(event.eventCities?.name);
+                    // }
+                    // if (filter === "Main Category") {
+                    //     return event.categories?.some((category) =>
+                    //         selectedOptions[filter].includes(category.name)
+                    //     );
+                    // }
+                    if (filter === "Sub Category") {
+                        console.log("s")
+                        return event.subCategories?.some((subCategory) =>
+                            selectedOptions[filter].includes(subCategory.name)
                         );
                     }
+                    return true;
+                });
+            });
+
+            setFilteredevents(filtered);
+        };
+
+        applyFilters();
+    }, [events, selectedOptions]);
+
+    useEffect(() => {
+        const applyFilters = () => {
+            if (!events.length) return;
+            const filtered = events.filter((event) => {
+                return mainFilters1.every((filter) => {
+                    if (!selectedOptions[filter] || !selectedOptions[filter].length) {
+                        return true;
+                    }
                     if (filter === "Sub Category") {
-                        return event.categories?.some((category) =>
-                            selectedOptions[filter].includes(category.name)
+                        return event.subCategories?.some((subCategory) =>
+                            selectedOptions[filter].includes(subCategory.name)
                         );
                     }
                     return true;
@@ -389,83 +420,92 @@ const Event = () => {
                 </div>
 
                 <div className="flex flex-wrap items-start justify-center gap-8 text-center text-black">
-                    {categories.map((category, index) => (
-                        <div
-                            key={index}
-                            className="relative flex flex-col items-center dropdown w-full sm:w-auto"
-                        >
+                    {loading ? (
+                        <div className="flex justify-center items-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                            <span className="ml-2">Loading...</span>
+                        </div>
+                    ) : (
+                        categories.map((category, index) => (
                             <div
-                                onClick={() => handleCategoryClick(index)}
-                                className="font-semibold text-black text-lg cursor-pointer hover:text-gray-700 relative group"
+                                key={index}
+                                className="relative flex flex-col items-center dropdown w-full sm:w-auto"
                             >
-                                <span>{category.label}</span>
-                                <span className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                                <div
+                                    onClick={() => handleCategoryClick(index)}
+                                    className="font-semibold text-black text-lg cursor-pointer hover:text-gray-700 relative group"
+                                >
+                                    <span>{category.label}</span>
+                                    <span className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
 
-                                {/* Tooltip for Smart Trip Plan */}
-                                {category.label === "Smart Trip Plan" && (
-                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 hidden group-hover:flex items-center justify-center bg-blue-900 text-white text-xs rounded-md px-4 py-1.5 w-48 h-10 shadow-md">
-                                        This feature is coming soon!
-                                    </div>
-                                )}
-
-                            </div>
-
-                            {activeIndex === index && category.label !== "Category Wise" && category.label !== "Smart Trip Plan" && (
-                                <div className="absolute top-full mt-2 w-full sm:w-[32rem] rounded-1xl bg-white shadow-md flex flex-col z-50">
-                                    {category.items.map((item, subIndex) => (
-                                        <div
-                                            key={subIndex}
-                                            className="px-6 py-2 text-left hover:bg-gray-200 cursor-pointer flex items-center"
-                                            onClick={() => alert(`Selected: ${item}`)}
-                                        >
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                            {item}
+                                    {/* Tooltip for Smart Trip Plan */}
+                                    {category.label === "Smart Trip Plan" && (
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 hidden group-hover:flex items-center justify-center bg-blue-900 text-white text-xs rounded-md px-4 py-1.5 w-48 h-10 shadow-md">
+                                            This feature is coming soon!
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
-                            )}
 
-                            {activeIndex === index && category.label === "Category Wise" && (
-                                <div className="absolute top-full mt-2 rounded-1xl w-full sm:w-[32rem] bg-white shadow-md flex flex-col sm:flex-row z-50">
-                                    <div className="w-full sm:w-1/2 border-b sm:border-r border-gray-300">
-                                        {category.items.map((mainCategory, mainIndex) => (
+                                {activeIndex === index && category.label !== "Category Wise" && category.label !== "Smart Trip Plan" && (
+                                    <div className="absolute top-full mt-2 w-full sm:w-[32rem] rounded-1xl bg-white shadow-md flex flex-col z-50">
+                                        {category.items.map((item, subIndex) => (
                                             <div
-                                                key={mainIndex}
-                                                className={`flex items-center px-6 py-2 text-left cursor-pointer transition-all duration-200 
-                              ${selectedMainCategory === mainIndex ? "bg-gray-200 font-bold" : ""}`}
-                                                onClick={() => setSelectedMainCategory(mainIndex)}
+                                                key={subIndex}
+                                                className="px-6 py-2 text-left hover:bg-gray-200 cursor-pointer flex items-center"
+                                                onClick={() => alert(`Selected: ${item}`)}
                                             >
                                                 <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                                {mainCategory.main}
+                                                {item}
                                             </div>
                                         ))}
                                     </div>
+                                )}
 
-                                    <div className="w-full sm:w-1/2">
-                                        {selectedMainCategory !== null &&
-                                            category.items[selectedMainCategory].sub.map(
-                                                (subCategory, subIndex) => (
-                                                    <div
-                                                        key={subIndex}
-                                                        className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
-                                                        onClick={() => alert(`Selected: ${subCategory.label}`)}
-                                                    >
-                                                        {/* Add the image here */}
-                                                        <img
-                                                            src={subCategory.photoUrl}
-                                                            alt={subCategory.label}
-                                                            className="w-6 h-6 rounded-full object-cover mr-3"
-                                                        />
-                                                        {subCategory.label}
-                                                    </div>
-                                                )
-                                            )}
+                                {activeIndex === index && category.label === "Category Wise" && (
+                                    <div className="absolute top-full mt-2 rounded-1xl w-full sm:w-[32rem] bg-white shadow-md flex flex-col sm:flex-row z-50">
+                                        <div className="w-full sm:w-1/2 border-b sm:border-r border-gray-300">
+                                            {category.items.map((mainCategory, mainIndex) => (
+                                                <div
+                                                    key={mainIndex}
+                                                    className={`flex items-center px-6 py-2 text-left cursor-pointer transition-all duration-200 
+                                  ${selectedMainCategory === mainIndex ? "bg-gray-200 font-bold" : ""}`}
+                                                    onClick={() => setSelectedMainCategory(mainIndex)}
+                                                >
+                                                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                                    {mainCategory.main}
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="w-full sm:w-1/2">
+                                            {selectedMainCategory !== null &&
+                                                category.items[selectedMainCategory].sub.map(
+                                                    (subCategory, subIndex) => (
+                                                        <div
+                                                            key={subIndex}
+                                                            className="flex items-center px-6 py-3 text-left hover:bg-gray-200 cursor-pointer"
+                                                            onClick={() => {
+                                                                setSelectedOptions((prevOptions) => ({
+                                                                    ...prevOptions,
+                                                                    "Sub Category": [subCategory.label],
+                                                                }));
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={subCategory.photoUrl}
+                                                                alt={subCategory.label}
+                                                                className="w-6 h-6 rounded-full object-cover mr-3"
+                                                            />
+                                                            {subCategory.label}
+                                                        </div>
+                                                    )
+                                                )}
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-
+                                )}
+                            </div>
+                        ))
+                    )}
                 </div>
 
 
