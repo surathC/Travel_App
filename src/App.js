@@ -20,28 +20,31 @@ import AccomadationDetails from "./pages/AccomadationDetails";
 import Register from "./pages/User/Register";
 import Login from "./pages/User/Login";
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from './components/features/Auth/authSlice';
-import { useSelector } from 'react-redux'; 
+import Profile from "./pages/User/Profile";
 
 function App() {
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.auth.token);
+  // Get token and user from Redux state
+  const { token, user } = useSelector((state) => state.auth);
+
+  // Check localStorage for token and user on initial load
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (token && user) {
-      dispatch(setCredentials({ user, token }));
+    const storedToken = localStorage.getItem('token');
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedToken && storedUser) {
+      dispatch(setCredentials({ user: storedUser, token: storedToken }));
     }
   }, [dispatch]);
 
   return (
     <BrowserRouter>
-       <Navbar token={token} />
+      {/* Pass token to Navbar */}
+      <Navbar token={token} />
 
       <Routes>
-
         <Route path="/" element={<LandingPage />} />
         <Route path="/destination" element={<Destination />} />
         <Route path="/destinationDetails" element={<DestinationDetails />} />
@@ -60,10 +63,11 @@ function App() {
 
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
+        {/* Pass user data to Profile component */}
+        <Route path="/profile" element={<Profile user={user} />} />
       </Routes>
-      <Footer />
 
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -40,6 +40,7 @@ const Activity = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [cities, setCities] = useState([]);
     const [filteredactivities, setFilteredactivities] = useState([]);
+    const [modalSelectedOptions, setModalSelectedOptions] = useState({}); // Separate state for modal
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -149,8 +150,19 @@ const Activity = () => {
         fetchCities();
     }, [selectedDistrict, API_URL, ACCESS_TOKEN]);
 
+
     const handleCheckboxChange = (filter, option) => {
         setSelectedOptions((prev) => {
+            const current = prev[filter] || [];
+            const updated = current.includes(option)
+                ? current.filter((item) => item !== option)
+                : [...current, option];
+            return { ...prev, [filter]: updated };
+        });
+    };
+
+    const handleModalCheckboxChange = (filter, option) => {
+        setModalSelectedOptions((prev) => {
             const current = prev[filter] || [];
             const updated = current.includes(option)
                 ? current.filter((item) => item !== option)
@@ -185,6 +197,13 @@ const Activity = () => {
         setSelectedOptions({});
         setSearchQueries({});
         setSelectedDistrict(null);
+        setModalSelectedOptions({});
+    };
+
+
+    const handleApplyFilters = () => {
+        setSelectedOptions(modalSelectedOptions); // Apply modal filters to main state
+        setIsModalOpen(false); // Close the modal
     };
 
     const handleShowResults = () => {
@@ -461,110 +480,25 @@ const Activity = () => {
                 <div className="my-10 h-[1px] bg-gray-300"></div>
 
 
-                <div className="flex flex-wrap items-center">
-                    {mainFilters.map((filter, index) => (
-                        <div key={index} className="relative flex-shrink-0">
-                            <div
-                                onClick={() => {
-                                    setActiveFilter(activeFilter === filter ? null : filter);
-                                }}
-                                className="px-6 py-2 ml-2 border rounded-md text-gray-700 hover:bg-gray-200 cursor-pointer"
-                            >
-                                {filter}
-                            </div>
-
-                            {activeFilter === filter && (
+                <div className="bg-gray-100 py-8">
+                    <div className="flex flex-wrap items-center">
+                        {mainFilters.map((filter, index) => (
+                            <div key={index} className="relative flex-shrink-0">
                                 <div
-                                    ref={menuRef}
-                                    className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg border rounded-md z-50"
+                                    onClick={() => {
+                                        setActiveFilter(activeFilter === filter ? null : filter);
+                                    }}
+                                    className="px-6 py-2 ml-2 border rounded-md text-gray-700 hover:bg-gray-200 cursor-pointer"
                                 >
-                                    <div className="p-4">
-                                        {/* Search bar */}
-                                        <input
-                                            type="text"
-                                            placeholder="Search..."
-                                            value={searchQueries[filter] || ""}
-                                            onChange={(e) => handleSearchChange(filter, e)}
-                                            className="w-full px-3 py-2 border rounded-md mb-2"
-                                        />
-
-                                        {/* Filter options */}
-                                        <div className="max-h-64 overflow-y-auto">
-                                            <div className="flex flex-col space-y-2">
-                                                {loading ? (
-                                                    <div>Loading...</div>
-                                                ) : (
-                                                    filterOptions(
-                                                        filter,
-                                                        filter === "City" ? cities : filterData[filter] || []
-                                                    ).map((item, idx) => (
-                                                        <div key={idx} className="flex items-center">
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`${filter}-${item.name}`}
-                                                                checked={
-                                                                    selectedOptions[filter]?.includes(item.name) || false
-                                                                }
-                                                                onChange={() => handleCheckboxChange(filter, item.name)}
-                                                                className="mr-2"
-                                                            />
-                                                            <label
-                                                                htmlFor={`${filter}-${item.name}`}
-                                                                className="text-gray-700"
-                                                            >
-                                                                {item.name}
-                                                            </label>
-                                                        </div>
-                                                    ))
-                                                )}
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    {filter}
                                 </div>
-                            )}
-                        </div>
-                    ))}
 
-                    <div className="ml-auto">
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="px-6 py-2 text-black rounded-md hover:bg-blue-700 border mr-5 hover:text-white flex items-center"
-                        >
-                            <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2" />
-                            Filters
-                        </button>
-                    </div>
-
-                    {/* Filter Modal */}
-                    {isModalOpen && (
-                        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-                            <div className="bg-white rounded-lg shadow-lg w-11/12 sm:w-2/6 max-h-[80vh] overflow-y-auto p-6 relative">
-                                <button
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="2"
+                                {activeFilter === filter && (
+                                    <div
+                                        ref={menuRef}
+                                        className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg border rounded-md z-50"
                                     >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </button>
-
-                                <div className="text-xl font-semibold mb-4">Filter Options</div>
-                                <div className="space-y-4">
-                                    {mainFilters.map((filter, index) => (
-                                        <div key={index} className="space-y-2">
-                                            <div className="font-medium">{filter}</div>
+                                        <div className="p-4">
                                             <input
                                                 type="text"
                                                 placeholder="Search..."
@@ -573,59 +507,138 @@ const Activity = () => {
                                                 className="w-full px-3 py-2 border rounded-md mb-2"
                                             />
                                             <div className="max-h-64 overflow-y-auto">
-                                                {loading ? (
-                                                    <div>Loading...</div>
-                                                ) : (
-                                                    filterOptions(
-                                                        filter,
-                                                        filter === "City"
-                                                            ? cities
-                                                            : filterData[filter] || []
-                                                    ).map((item, idx) => (
-                                                        <div key={idx} className="flex items-center">
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`${filter}-${item.name}`}
-                                                                checked={
-                                                                    selectedOptions[filter]?.includes(item.name) ||
-                                                                    false
-                                                                }
-                                                                onChange={() =>
-                                                                    handleCheckboxChange(filter, item.name)
-                                                                }
-                                                                className="mr-2"
-                                                            />
-                                                            <label
-                                                                htmlFor={`${filter}-${item.name}`}
-                                                                className="text-gray-700"
-                                                            >
-                                                                {item.name}
-                                                            </label>
-                                                        </div>
-                                                    ))
-                                                )}
+                                                <div className="flex flex-col space-y-2">
+                                                    {loading ? (
+                                                        <div>Loading...</div>
+                                                    ) : (
+                                                        filterOptions(
+                                                            filter,
+                                                            filter === "City" ? cities : filterData[filter] || []
+                                                        ).map((item, idx) => (
+                                                            <div key={idx} className="flex items-center">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={`${filter}-${item.name}`}
+                                                                    checked={
+                                                                        selectedOptions[filter]?.includes(item.name) || false
+                                                                    }
+                                                                    onChange={() => handleCheckboxChange(filter, item.name)}
+                                                                    className="mr-2"
+                                                                />
+                                                                <label
+                                                                    htmlFor={`${filter}-${item.name}`}
+                                                                    className="text-gray-700"
+                                                                >
+                                                                    {item.name}
+                                                                </label>
+                                                            </div>
+                                                        ))
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
 
-                                <div className="flex justify-between mt-4">
+                        <div className="ml-auto">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="px-6 py-2 text-black rounded-md hover:bg-blue-700 border mr-5 hover:text-white flex items-center"
+                            >
+                                <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2" />
+                                Filters
+                            </button>
+                        </div>
+
+                        {isModalOpen && (
+                            <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+                                <div className="bg-white rounded-lg shadow-lg w-11/12 sm:w-2/6 max-h-[80vh] overflow-y-auto p-6 relative">
                                     <button
-                                        onClick={handleResetAll}
-                                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md"
+                                        onClick={() => setIsModalOpen(false)}
+                                        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                                     >
-                                        Reset All
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="2"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
+                                        </svg>
                                     </button>
-                                    <button
-                                        onClick={handleShowResults}
-                                        className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                                    >
-                                        Show Results
-                                    </button>
+
+                                    <div className="text-xl font-semibold mb-4">Filter Options</div>
+                                    <div className="space-y-4">
+                                        {mainFilters.map((filter, index) => (
+                                            <div key={index} className="space-y-2">
+                                                <div className="font-medium">{filter}</div>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Search..."
+                                                    value={searchQueries[filter] || ""}
+                                                    onChange={(e) => handleSearchChange(filter, e)}
+                                                    className="w-full px-3 py-2 border rounded-md mb-2"
+                                                />
+                                                <div className="max-h-64 overflow-y-auto">
+                                                    {loading ? (
+                                                        <div>Loading...</div>
+                                                    ) : (
+                                                        filterOptions(
+                                                            filter,
+                                                            filter === "City" ? cities : filterData[filter] || []
+                                                        ).map((item, idx) => (
+                                                            <div key={idx} className="flex items-center">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={`${filter}-${item.name}`}
+                                                                    checked={
+                                                                        modalSelectedOptions[filter]?.includes(item.name) || false
+                                                                    }
+                                                                    onChange={() =>
+                                                                        handleModalCheckboxChange(filter, item.name)
+                                                                    }
+                                                                    className="mr-2"
+                                                                />
+                                                                <label
+                                                                    htmlFor={`${filter}-${item.name}`}
+                                                                    className="text-gray-700"
+                                                                >
+                                                                    {item.name}
+                                                                </label>
+                                                            </div>
+                                                        ))
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-between mt-4">
+                                        <button
+                                            onClick={handleResetAll}
+                                            className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md"
+                                        >
+                                            Reset All
+                                        </button>
+                                        <button
+                                            onClick={handleApplyFilters}
+                                            className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                                        >
+                                            Apply Filters
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div >
 

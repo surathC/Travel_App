@@ -81,6 +81,13 @@ export default function Navbar({ token }) {
                 </a>
               ))}
             </div>
+            <div className="space-x-4">
+              {token && (
+                <Link to="/profile" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                  <button>Profile</button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
         <div className="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8 bg-gray-400">
@@ -172,7 +179,7 @@ export default function Navbar({ token }) {
                 </MenuItems>
               </Menu>
             </div> */}
-           <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               {token ? (
                 <button
                   onClick={handleLogout}
