@@ -42,7 +42,7 @@ const FindGuide = () => {
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
-
+    const [searchTerm, setSearchTerm] = useState("");
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -353,12 +353,23 @@ const FindGuide = () => {
     return (
         <>
             <div className="bg-gray-100 py-8">
-                <div className="w-full flex justify-center mb-6">
-                    <input
-                        type="text"
-                        placeholder="Search your find guides..."
-                        className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                <div className="w-full flex justify-center items-center mb-6 px-4">
+                    <div className="flex-grow max-w-2xl">
+                        <input
+                            type="text"
+                            placeholder="Search your find guids..."
+                            className="w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div
+                        onClick={handleResetAll}
+                        className="ml-4 px-6 py-2 border rounded-md text-black-700 hover:bg-blue-700 hover:text-white cursor-pointer whitespace-nowrap"
+                    >
+                        Clear All Filter
+                    </div>
                 </div>
 
                 <div className="flex flex-wrap items-start justify-center gap-8 text-center text-black">

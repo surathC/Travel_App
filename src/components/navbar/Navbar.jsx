@@ -40,7 +40,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ token }) {
+export default function Navbar({ isLogged }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -82,7 +82,7 @@ export default function Navbar({ token }) {
               ))}
             </div>
             <div className="space-x-4">
-              {token && (
+              {isLogged && (
                 <Link to="/profile" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                   <button>Profile</button>
                 </Link>
@@ -180,7 +180,7 @@ export default function Navbar({ token }) {
               </Menu>
             </div> */}
             <div className="flex items-center space-x-4">
-              {token ? (
+              {isLogged ? (
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"

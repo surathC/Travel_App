@@ -137,12 +137,21 @@ const ServiceDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{service.suggestionTime}</span></p>
+                            <p>Open Time - <span className="font-bold">{service.suggestionTime}</span></p>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        {/* <div className="flex items-center gap-3">
                             <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
                             <p>Ticket Price - <span className="font-bold">{service.ticketPrice}</span></p>
+                        </div> */}
+                           <div className="flex items-center gap-3">
+                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <p>
+                                Category -{" "}
+                                <span className="font-bold">
+                                    {service.categories.map(category => category.name).join(", ")}
+                                </span>
+                            </p>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -153,17 +162,6 @@ const ServiceDetails = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
-                            <p>
-                                Category -{" "}
-                                <span className="font-bold">
-                                    {service.categories.map(category => category.name).join(", ")}
-                                </span>
-                            </p>
-                        </div>
-
-
                         <div className="flex items-center gap-3">
                             <p>Social Media -</p>
                             {Object.entries(service.socialMediaLinksJson).map(([key, url]) => (
@@ -295,22 +293,6 @@ const ServiceDetails = () => {
                                 </a>
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div className="bg-white-100">
-                <div className="bg-white-50 py-8">
-                    <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">{service.name}</span> -</h2>
-                        <div className="text-center">
-                            <iframe
-                                src="https://weather.com/"
-                                title="Weather Report"
-                                className="w-full h-96 border-0 rounded-lg"
-                            ></iframe>
                         </div>
                     </div>
                 </div>

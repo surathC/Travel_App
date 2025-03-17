@@ -177,7 +177,7 @@ const Service = () => {
         });
     };
 
- 
+
     const handleSearchChange = (filter, event) => {
         setSearchQueries((prev) => ({
             ...prev,
@@ -379,14 +379,23 @@ const Service = () => {
     return (
         <>
             <div className="bg-gray-100 py-8">
-                <div className="w-full flex justify-center mb-6">
-                    <input
-                        type="text"
-                        placeholder="Search your services..."
-                        className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                <div className="w-full flex justify-center items-center mb-6 px-4">
+                    <div className="flex-grow max-w-2xl">
+                        <input
+                            type="text"
+                            placeholder="Search your services..."
+                            className="w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div
+                        onClick={handleResetAll}
+                        className="ml-4 px-6 py-2 border rounded-md text-black-700 hover:bg-blue-700 hover:text-white cursor-pointer whitespace-nowrap"
+                    >
+                        Clear All Filter
+                    </div>
                 </div>
 
                 <div className="flex flex-wrap items-start justify-center gap-8 text-center text-black">
@@ -663,7 +672,8 @@ const Service = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={service.photos && service.photos.length > 0 ? service.photos[0].url : 'default-image-url.jpg'}
+                                    src="https://d8asu6slkrh4m.cloudfront.net/2015/01/longterm.jpg"
+                                    // src={service.photos && service.photos.length > 0 ? service.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
@@ -671,17 +681,13 @@ const Service = () => {
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
                                 <h3 className="text-lg md:text-2xl font-bold text-gray-800">{service.name}</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {service.categories.map(category => category.name).join(", ")}
+                                    {/* {service.categories.map(category => category.name).join(", ")} */}
+                                    Category
                                 </p>
 
-
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
-                                    <span className="mr-2">
-                                        <i className="far fa-clock"></i> {service.suggestionTime}
-                                    </span>
-                                </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {service.description}
+                                    {/* {service.description} */}
+                                    Description
                                 </p>
 
                                 <div className="mb-4">

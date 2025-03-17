@@ -48,7 +48,7 @@ const Destination = () => {
     const [modalSelectedOptions, setModalSelectedOptions] = useState({});
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
-
+    const [totalPages, setTotalPages] = useState(0);
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -358,9 +358,8 @@ const Destination = () => {
     }, [API_URL, ACCESS_TOKEN]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 9;
 
-    const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
 
     const paginatedDestinations = filteredDestinations.slice(
         (currentPage - 1) * itemsPerPage,
@@ -368,15 +367,16 @@ const Destination = () => {
     );
 
     useEffect(() => {
-        const fetchDestinations = async () => {
+        const fetchDestinations = async (page) => {
             try {
-                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
+                const response = await axios.get(`${API_URL}destinations?page=${page}&pageSize=${itemsPerPage}`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
                 });
                 if (response.data && response.data.items) {
                     setDestinations(response.data.items);
+                    setTotalPages(response.data.totalPages); 
                 } else {
                     console.error("Unexpected response structure:", response.data);
                 }
@@ -385,8 +385,8 @@ const Destination = () => {
             }
         };
 
-        fetchDestinations();
-    }, [API_URL, ACCESS_TOKEN]);
+        fetchDestinations(currentPage); 
+    }, [currentPage, API_URL, ACCESS_TOKEN, itemsPerPage]);
 
     useEffect(() => {
         const applyFilters = () => {
@@ -472,14 +472,23 @@ const Destination = () => {
     return (
         <>
             <div className="bg-gray-100 py-8">
-                <div className="w-full flex justify-center mb-6">
-                    <input
-                        type="text"
-                        placeholder="Search your destination..."
-                        className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                <div className="w-full flex justify-center items-center mb-6 px-4">
+                    <div className="flex-grow max-w-2xl">
+                        <input
+                            type="text"
+                            placeholder="Search your destination..."
+                            className="w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div
+                        onClick={handleResetAll} 
+                        className="ml-4 px-6 py-2 border rounded-md text-black-700 hover:bg-blue-700 hover:text-white cursor-pointer whitespace-nowrap"
+                    >
+                        Clear All Filter
+                    </div>
                 </div>
 
                 <div className="flex flex-wrap items-start justify-center gap-8 text-center text-black">
@@ -818,8 +827,10 @@ const Destination = () => {
 
                 {paginatedDestinations.map(destination => (
                     <div key={destination.id}>
+                        {/* Render destination details here */}
                     </div>
                 ))}
+
                 {totalPages > 1 && (
                     <div className="flex justify-center items-center mt-8">
                         {Array.from({ length: totalPages }, (_, i) => (
@@ -839,7 +850,6 @@ const Destination = () => {
                         ))}
                     </div>
                 )}
-
 
                 {destinations.length === 0 && (
                     <p className="text-center text-gray-500 mt-8">Loarding....</p>

@@ -27,22 +27,20 @@ import Profile from "./pages/User/Profile";
 function App() {
   const dispatch = useDispatch();
 
-  // Get token and user from Redux state
-  const { token, user } = useSelector((state) => state.auth);
+  const { token, user, isLogged } = useSelector((state) => state.auth);
 
-  // Check localStorage for token and user on initial load
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
+    const storedIsLogged = JSON.parse(localStorage.getItem("isLogged"));
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedToken && storedUser) {
-      dispatch(setCredentials({ user: storedUser, token: storedToken }));
+      dispatch(setCredentials({ user: storedUser, token: storedToken, isLogged: storedIsLogged }));
     }
   }, [dispatch]);
 
   return (
     <BrowserRouter>
-      {/* Pass token to Navbar */}
-      <Navbar token={token} />
+      <Navbar isLogged={isLogged} />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -63,7 +61,6 @@ function App() {
 
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        {/* Pass user data to Profile component */}
         <Route path="/profile" element={<Profile user={user} />} />
       </Routes>
 

@@ -379,14 +379,23 @@ const Activity = () => {
     return (
         <>
             <div className="bg-gray-100 py-8">
-                <div className="w-full flex justify-center mb-6">
-                    <input
-                        type="text"
-                        placeholder="Search your activities..."
-                        className="w-4/5 md:w-3/5 px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+            <div className="w-full flex justify-center items-center mb-6 px-4">
+                    <div className="flex-grow max-w-2xl">
+                        <input
+                            type="text"
+                            placeholder="Search your activities..."
+                            className="w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div
+                        onClick={handleResetAll} 
+                        className="ml-4 px-6 py-2 border rounded-md text-black-700 hover:bg-blue-700 hover:text-white cursor-pointer whitespace-nowrap"
+                    >
+                        Clear All Filter
+                    </div>
                 </div>
                 <div className="flex flex-wrap items-start justify-center gap-8 text-center text-black">
                     {loading ? (
@@ -661,25 +670,31 @@ const Activity = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={activity.photos && activity.photos.length > 0 ? activity.photos[0].url : 'default-image-url.jpg'}
+                                    src='https://explore.vacations/wp-content/uploads/2022/07/Surfing-Experience-In-Sri-Lanka--980x490.jpg'
+                                    // src={activity.photos && activity.photos.length > 0 ? activity.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{activity.name}</h3>
-                                <p className="text-xs md:text-sm text-blue-600 mb-2">
+                                {/* <h3 className="text-lg md:text-2xl font-bold text-gray-800">{activity.name}</h3> */}
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">Surfing</h3>
+                                {/* <p className="text-xs md:text-sm text-blue-600 mb-2">
                                     {activity.categories.map(category => category.name).join(", ")}
+                                </p> */}
+                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
+                                    Category
                                 </p>
-
 
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
                                     <span className="mr-2">
-                                        <i className="far fa-clock"></i> {activity.suggestionTime}
+                                        {/* <i className="far fa-clock"></i> {activity.suggestionTime} */}
+                                        <i className="far fa-clock"></i> 3 Hours
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {activity.description}
+                                    {/* {activity.description} */}
+                                    Sri Lanka is a top destination for surfing enthusiasts from around the world. With its beautiful beaches, warm waters, and consistent waves, it’s no wonder why. Whether you’re a beginner or an experienced surfer, Sri Lanka has something to offer. In this article, we’ll take a closer look at surfing in Sri Lanka and everything you need to know before you hit the waves.
                                 </p>
 
                                 <div className="mb-4">

@@ -110,7 +110,8 @@ const ActivityDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold mb-5">{activity.name}</h1>
+                        {/* <h1 className="text-3xl font-bold mb-5">{activity.name}</h1> */}
+                        <h1 className="text-3xl font-bold mb-5"> Surfing</h1>
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
                         </button>
@@ -267,7 +268,8 @@ const ActivityDetails = () => {
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{activity.name}</span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
-                                    {activity.description}
+                                    {/* {activity.description} */}
+                                    Sri Lanka is a top destination for surfing enthusiasts from around the world. With its beautiful beaches, warm waters, and consistent waves, it’s no wonder why. Whether you’re a beginner or an experienced surfer, Sri Lanka has something to offer. In this article, we’ll take a closer look at surfing in Sri Lanka and everything you need to know before you hit the waves.
                                 </p>
                             </div>
 
