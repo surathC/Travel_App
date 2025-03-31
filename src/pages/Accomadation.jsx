@@ -295,7 +295,7 @@ const Accomadation = () => {
     useEffect(() => {
         const fetchaccomadations = async () => {
             try {
-                const response = await axios.get(`${API_URL}accomadations?pageSize=100`, {
+                const response = await axios.get(`${API_URL}services?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
@@ -678,25 +678,31 @@ const Accomadation = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
+                                    // src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
+                                    src="https://lh3.googleusercontent.com/p/AF1QipMIlQKpdqUmK4HO1HruSb7aiZPhEwTTmL6X6fBn=s1360-w1360-h1020"
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{accomadation.name}</h3>
+                                {/* <h3 className="text-lg md:text-2xl font-bold text-gray-800">{accomadation.name}</h3> */}
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">Madolsima Start Camping</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {accomadation.categories.map(category => category.name).join(", ")}
+                                    {/* {accomadation.categories.map(category => category.name).join(", ")} */}
+                                    Category
                                 </p>
 
 
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
                                     <span className="mr-2">
-                                        <i className="far fa-clock"></i> {accomadation.suggestionTime}
+                                        <i className="far fa-clock"></i> 
+                                        {/* {accomadation.suggestionTime} */}
+                                        2 hours
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {accomadation.description}
+                                    {/* {accomadation.description} */}
+                                    Description
                                 </p>
 
                                 <div className="mb-4">

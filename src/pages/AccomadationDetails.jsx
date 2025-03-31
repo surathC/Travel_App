@@ -110,7 +110,9 @@ const AccomadationDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold mb-5">{accomadation.name}</h1>
+                        {/* <h1 className="text-3xl font-bold mb-5">{accomadation.name}</h1> */}
+                        <h1 className="text-3xl font-bold mb-5">Madolsima Start Camping</h1>
+
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
                         </button>
@@ -125,7 +127,8 @@ const AccomadationDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {accomadation.name}
+                                    {/* {accomadation.name} */}
+                                    Madolsima Start Camping
                                 </span>
                             </p>
 
@@ -209,7 +212,10 @@ const AccomadationDetails = () => {
                 <div className="container mx-auto py-10">
                     <h2 className="text-center text-2xl font-bold mb-6">
                         - Some photos from - <br />
-                        <span className="text-orange-500">{accomadation.name}</span>
+                        <span className="text-orange-500">
+                            {/* {accomadation.name} */}
+                            Madolsima Start Camping
+                            </span>
                     </h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -265,7 +271,10 @@ const AccomadationDetails = () => {
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{accomadation.name}</span> -</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
+                                    {/* {accomadation.name} */}
+                                    Madolsima Start Camping
+                                    </span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     {accomadation.description}
                                 </p>
@@ -280,7 +289,8 @@ const AccomadationDetails = () => {
                                             window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                         }}
                                     >
-                                        {accomadation.name}
+                                        {/* {accomadation.name} */}
+                                        Madolsima Start Camping
                                     </span> -
                                 </h2>
                                 <a
@@ -308,7 +318,10 @@ const AccomadationDetails = () => {
             <div className="bg-white-100">
                 <div className="bg-white-50 py-8">
                     <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">{accomadation.name}</span> -</h2>
+                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">
+                            {/* {accomadation.name} */}
+                            Madolsima Start Camping
+                            </span> -</h2>
                         <div className="text-center">
                             <iframe
                                 src="https://weather.com/"
