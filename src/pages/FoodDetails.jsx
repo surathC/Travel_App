@@ -110,7 +110,8 @@ const FoodDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold mb-5">{food.name}</h1>
+                        {/* <h1 className="text-3xl font-bold mb-5">{food.name}</h1> */}
+                        <h1 className="text-3xl font-bold mb-5">Nelum Kole</h1>
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
                         </button>
@@ -125,7 +126,8 @@ const FoodDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {food.name}
+                                    {/* {food.name} */}
+                                    Nelum Kole
                                 </span>
                             </p>
 
@@ -136,16 +138,6 @@ const FoodDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{food.suggestionTime}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{food.ticketPrice}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p>Ratings <span className="font-bold text-yellow-500">{food.rating}</span></p>
                         </div>
@@ -154,9 +146,7 @@ const FoodDetails = () => {
                             <i className="fas fa-clock text-gray-600 text-xl"></i>
                             <p>Open Time - <span className="font-bold">{food.openingHorurs}</span></p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
                             <p>
@@ -166,7 +156,9 @@ const FoodDetails = () => {
                                 </span>
                             </p>
                         </div>
+                    </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
 
                         <div className="flex items-center gap-3">
                             <p>Social Media -</p>
@@ -209,7 +201,8 @@ const FoodDetails = () => {
                 <div className="container mx-auto py-10">
                     <h2 className="text-center text-2xl font-bold mb-6">
                         - Some photos from - <br />
-                        <span className="text-orange-500">{food.name}</span>
+                        {/* <span className="text-orange-500">{food.name}</span> */}
+                        <span className="text-orange-500">Nelum Kole</span>
                     </h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -265,9 +258,13 @@ const FoodDetails = () => {
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{food.name}</span> -</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
+                                    {/* {food.name} */}
+                                    Nelum Kole
+                                    </span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
-                                    {food.description}
+                                    {/* {food.description} */}
+                                    Descriprion
                                 </p>
                             </div>
 
@@ -280,7 +277,8 @@ const FoodDetails = () => {
                                             window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                         }}
                                     >
-                                        {food.name}
+                                        {/* {food.name} */}
+                                        Nelum Kole
                                     </span> -
                                 </h2>
                                 <a
@@ -304,21 +302,6 @@ const FoodDetails = () => {
                 </div>
             </div>
 
-
-            <div className="bg-white-100">
-                <div className="bg-white-50 py-8">
-                    <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">{food.name}</span> -</h2>
-                        <div className="text-center">
-                            <iframe
-                                src="https://weather.com/"
-                                title="Weather Report"
-                                className="w-full h-96 border-0 rounded-lg"
-                            ></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div className="bg-gray-100">
                 <div className="bg-gray-50 py-8">

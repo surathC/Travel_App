@@ -293,7 +293,7 @@ const Food = () => {
     useEffect(() => {
         const fetchfoods = async () => {
             try {
-                const response = await axios.get(`${API_URL}foods?pageSize=100`, {
+                const response = await axios.get(`${API_URL}services?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
@@ -650,25 +650,24 @@ const Food = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={food.photos && food.photos.length > 0 ? food.photos[0].url : 'default-image-url.jpg'}
+                                    // src={food.photos && food.photos.length > 0 ? food.photos[0].url : 'default-image-url.jpg'}
+                                    src="https://tb-static.uber.com/prod/image-proc/processed_images/25d9ec9dfe3d881b8debfe5426f4b682/fb86662148be855d931b37d6c1e5fcbe.jpeg"
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{food.name}</h3>
+                                {/* <h3 className="text-lg md:text-2xl font-bold text-gray-800">{food.name}</h3> */}
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">Nelum Kole</h3>
+
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {food.categories.map(category => category.name).join(", ")}
+                                    {/* {food.categories.map(category => category.name).join(", ")} */}
+                                    Category
                                 </p>
 
-
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
-                                    <span className="mr-2">
-                                        <i className="far fa-clock"></i> {food.suggestionTime}
-                                    </span>
-                                </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {food.description}
+                                    {/* {food.description} */}
+                                    Description
                                 </p>
 
                                 <div className="mb-4">
