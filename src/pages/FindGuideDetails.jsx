@@ -162,7 +162,7 @@ const FindGuideDetails = () => {
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
-                                    {findGuide.categories.map(category => category.name).join(", ")}
+                                    {/* {findGuide.categories.map(category => category.name).join(", ")} */}
                                 </span>
                             </p>
                         </div>
