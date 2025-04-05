@@ -19,7 +19,7 @@ const Destination = () => {
     const mainFilters = [
         "District",
         "City",
-        "Duration",
+        "Popular Area",
         "Main Category",
         "Sub Category",
         "Transport Method",
@@ -30,7 +30,7 @@ const Destination = () => {
     const [filterData, setFilterData] = useState({
         District: [],
         City: [],
-        Duration: [],
+        "Popular Area": [],
         "Main Category": [],
         "Sub Category": [],
         "Transport Method": [],
@@ -376,7 +376,7 @@ const Destination = () => {
                 });
                 if (response.data && response.data.items) {
                     setDestinations(response.data.items);
-                    setTotalPages(response.data.totalPages); 
+                    setTotalPages(response.data.totalPages);
                 } else {
                     console.error("Unexpected response structure:", response.data);
                 }
@@ -385,7 +385,7 @@ const Destination = () => {
             }
         };
 
-        fetchDestinations(currentPage); 
+        fetchDestinations(currentPage);
     }, [currentPage, API_URL, ACCESS_TOKEN, itemsPerPage]);
 
     useEffect(() => {
@@ -484,7 +484,7 @@ const Destination = () => {
                     </div>
 
                     <div
-                        onClick={handleResetAll} 
+                        onClick={handleResetAll}
                         className="ml-4 px-6 py-2 border rounded-md text-black-700 hover:bg-blue-700 hover:text-white cursor-pointer whitespace-nowrap"
                     >
                         Clear All Filter

@@ -137,25 +137,36 @@ const AccomadationDetails = () => {
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{accomadation.suggestionTime}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{accomadation.ticketPrice}</span></p>
-                        </div>
-
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p>Ratings <span className="font-bold text-yellow-500">{accomadation.rating}</span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">{accomadation.ticketPrice}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <p>Budget Type - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <p>Features - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <p>Special Note - <span className="font-bold">{accomadation.openingHorurs}</span></p>
                         </div>
                     </div>
 
@@ -215,7 +226,7 @@ const AccomadationDetails = () => {
                         <span className="text-orange-500">
                             {/* {accomadation.name} */}
                             Madolsima Start Camping
-                            </span>
+                        </span>
                     </h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -274,7 +285,7 @@ const AccomadationDetails = () => {
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
                                     {/* {accomadation.name} */}
                                     Madolsima Start Camping
-                                    </span> -</h2>
+                                </span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     {accomadation.description}
                                 </p>
@@ -321,7 +332,7 @@ const AccomadationDetails = () => {
                         <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">
                             {/* {accomadation.name} */}
                             Madolsima Start Camping
-                            </span> -</h2>
+                        </span> -</h2>
                         <div className="text-center">
                             <iframe
                                 src="https://weather.com/"

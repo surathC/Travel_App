@@ -136,15 +136,16 @@ const ServiceDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{service.suggestionTime}</span></p>
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">{service.ticketPrice}</span></p>
                         </div>
 
-                        {/* <div className="flex items-center gap-3">
-                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{service.ticketPrice}</span></p>
-                        </div> */}
-                           <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">{service.openingHorurs}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}

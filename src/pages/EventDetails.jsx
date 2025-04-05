@@ -134,12 +134,6 @@ const EventDetails = () => {
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{event.suggestionTime}</span></p>
-                        </div>
-
                         <div className="flex items-center gap-3">
                             <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
                             <p>Ticket Price - <span className="font-bold">{event.ticketPrice}</span></p>
@@ -150,13 +144,7 @@ const EventDetails = () => {
                             <p>Ratings <span className="font-bold text-yellow-500">{event.rating}</span></p>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{event.openingHorurs}</span></p>
-                        </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
                             <p>
@@ -168,25 +156,18 @@ const EventDetails = () => {
                                 </span>
                             </p>
                         </div>
+                    </div>
 
-
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <p>Social Media -</p>
-                            {Object.entries(event.socialMediaLinksJson).map(([key, url]) => (
-                                url ? (
-                                    <a
-                                        key={key}
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-500 hover:text-blue-700"
-                                    >
-                                        {iconMap[key]}
-                                    </a>
-                                ) : null
-                            ))}
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">{event.ticketPrice}</span></p>
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">{event.openingHorurs}</span></p>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">

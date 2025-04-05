@@ -143,8 +143,13 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{food.openingHorurs}</span></p>
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">{food.ticketPrice}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">{food.openingHorurs}</span></p>
                         </div>
 
                         <div className="flex items-center gap-3">

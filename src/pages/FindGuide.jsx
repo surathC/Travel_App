@@ -21,6 +21,7 @@ const FindGuide = () => {
         "City",
         "Main Category",
         "Sub Category",
+        "Popular Area"
     ];
 
     const [filterData, setFilterData] = useState({
@@ -28,6 +29,7 @@ const FindGuide = () => {
         City: [],
         "Main Category": [],
         "Sub Category": [],
+        "Popular Area": []
     });
 
     const [activeFilter, setActiveFilter] = useState(null);
