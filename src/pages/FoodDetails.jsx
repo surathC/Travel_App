@@ -186,6 +186,10 @@ const FoodDetails = () => {
                             ))}
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <p>Features - <span className="font-bold">{food.openingHorurs}</span></p>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
