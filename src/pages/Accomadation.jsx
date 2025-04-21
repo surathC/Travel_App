@@ -42,6 +42,7 @@ const Accomadation = () => {
     const [cities, setCities] = useState([]);
     const [filteredaccomadations, setFilteredaccomadations] = useState([]);
     const [modalSelectedOptions, setModalSelectedOptions] = useState({}); // Separate state for modal
+    const [totalPages, setTotalPages] = useState(0);
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -285,33 +286,32 @@ const Accomadation = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
 
-    const totalPages = Math.ceil(filteredaccomadations.length / itemsPerPage);
-
     const paginatedaccomadations = filteredaccomadations.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
 
     useEffect(() => {
-        const fetchaccomadations = async () => {
+        const fetchaccomadations = async (page) => {
             try {
-                const response = await axios.get(`${API_URL}services?pageSize=100`, {
+                const response = await axios.get(`${API_URL}accommodations?page=${page}&pageSize=${itemsPerPage}`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
                 });
                 if (response.data && response.data.items) {
                     setaccomadations(response.data.items);
+                    setTotalPages(response.data.totalPages);
                 } else {
                     console.error("Unexpected response structure:", response.data);
                 }
             } catch (error) {
-                console.error("Error fetching accomadations:", error);
+                console.error("Error fetching accommodations:", error);
             }
         };
 
-        fetchaccomadations();
-    }, [API_URL, ACCESS_TOKEN]);
+        fetchaccomadations(currentPage);
+    }, [currentPage, API_URL, ACCESS_TOKEN, itemsPerPage]);
 
     useEffect(() => {
         const fetchTravelTypes = async () => {
@@ -678,31 +678,26 @@ const Accomadation = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    // src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
-                                    src="https://lh3.googleusercontent.com/p/AF1QipMIlQKpdqUmK4HO1HruSb7aiZPhEwTTmL6X6fBn=s1360-w1360-h1020"
+                                    src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                {/* <h3 className="text-lg md:text-2xl font-bold text-gray-800">{accomadation.name}</h3> */}
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">Madolsima Start Camping</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{accomadation.name}</h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {/* {accomadation.categories.map(category => category.name).join(", ")} */}
-                                    Category
+                                    {accomadation.categories.map(category => category.name).join(", ")}
                                 </p>
 
 
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
                                     <span className="mr-2">
                                         <i className="far fa-clock"></i> 
-                                        {/* {accomadation.suggestionTime} */}
-                                        2 hours
+                                        {accomadation.suggestionTime}
                                     </span>
                                 </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {/* {accomadation.description} */}
-                                    Description
+                                    {accomadation.description}
                                 </p>
 
                                 <div className="mb-4">

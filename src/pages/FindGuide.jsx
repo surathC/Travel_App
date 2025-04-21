@@ -298,7 +298,7 @@ const FindGuide = () => {
     useEffect(() => {
         const fetchfindGuides = async () => {
             try {
-                const response = await axios.get(`${API_URL}guides?pageSize=100`, {
+                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },

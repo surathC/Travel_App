@@ -9,6 +9,10 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { useLocation } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaGlobe } from 'react-icons/fa';
+import axios from 'axios';
+import { Oval } from 'react-loader-spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFrown } from '@fortawesome/free-solid-svg-icons';
 
 const DestinationDetails = () => {
     const location = useLocation();
@@ -96,6 +100,43 @@ const DestinationDetails = () => {
         const [lat, lng] = destination.googleMap.split(", ");
         setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
     };
+
+    const [weather, setWeather] = useState({
+        loading: false,
+        data: {},
+        error: false,
+    });
+
+    const toDateFunction = () => {
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
+    useEffect(() => {
+        if (destination?.googleMap) {
+            const [lat, lng] = destination.googleMap.split(", ");
+            console.log(lat, lng)
+            fetchWeather(lat, lng);
+        }
+    }, [destination]);
+
+    const fetchWeather = async (lat, lng) => {
+        setWeather({ ...weather, loading: true });
+
+        try {
+            const response = await axios.get('https://api.weatherapi.com/v1/current.json', {
+                params: {
+                    key: '27fc86cd8c46462a9e0142307252104',
+                    q: `${lat},${lng}`,
+                },
+            });
+
+            console.log(response)
+            setWeather({ data: response.data, loading: false, error: false });
+        } catch (error) {
+            setWeather({ ...weather, data: {}, error: true });
+        }
+    }
 
     const iconMap = {
         webUrl: <FaGlobe />,
@@ -331,13 +372,51 @@ const DestinationDetails = () => {
             <div className="bg-white-100">
                 <div className="bg-white-50 py-8">
                     <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">{destination.name}</span> -</h2>
+                        <h2 className="text-2xl text-center font-bold mb-4">
+                            - Weather Report Of <span className="text-orange-500">{destination.name}</span> -
+                        </h2>
                         <div className="text-center">
-                            <iframe
-                                src="https://weather.com/"
-                                title="Weather Report"
-                                className="w-full h-96 border-0 rounded-lg"
-                            ></iframe>
+                            {weather.loading ? (
+                                <div className="flex justify-center items-center h-96">
+                                    <Oval type="Oval" color="black" height={100} width={100} />
+                                </div>
+                            ) : weather.error ? (
+                                <div className="flex flex-col justify-center items-center h-96">
+                                    <FontAwesomeIcon icon={faFrown} size="2x" />
+                                    <span className="text-xl mt-4">Weather data not available</span>
+                                </div>
+                            ) : weather.data?.current ? (
+                                <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                                    <div className="city-name">
+                                        <h2 className="text-xl font-bold">
+                                            {weather.data.location?.name}, <span>{weather.data.location?.country}</span>
+                                        </h2>
+                                    </div>
+                                    <div className="date text-gray-600 mb-4">
+                                        <span>{toDateFunction()}</span>
+                                    </div>
+                                    <div className="icon-temp flex items-center justify-center">
+                                        <img
+                                            className="w-20 h-20"
+                                            src={`https:${weather.data.current.condition?.icon}`}
+                                            alt={weather.data.current.condition?.text}
+                                        />
+                                        <span className="text-4xl font-bold">
+                                            {Math.round(weather.data.current.temp_c)}
+                                            <sup className="text-xl">°C</sup>
+                                        </span>
+                                    </div>
+                                    <div className="des-wind mt-4">
+                                        <p className="text-lg capitalize">{weather.data.current.condition?.text}</p>
+                                        <p>Humidity: {weather.data.current.humidity}%</p>
+                                        <p>Wind Speed: {weather.data.current.wind_kph} km/h</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="h-96 flex items-center justify-center">
+                                    <p>Weather information will appear here</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -87,15 +87,15 @@ const AccomadationDetails = () => {
         setIsModalOpen(false);
     };
 
-    const [mapUrl, setMapUrl] = useState(() => {
-        const [lat, lng] = accomadation.googleMap.split(", ");
-        return `https://www.google.com/maps?q=${lat},${lng}&output=embed`;
-    });
+    // const [mapUrl, setMapUrl] = useState(() => {
+    //     const [lat, lng] = accomadation.googleMap.split(", ");
+    //     return `https://www.google.com/maps?q=${lat},${lng}&output=embed`;
+    // });
 
-    const handleMapLoad = () => {
-        const [lat, lng] = accomadation.googleMap.split(", ");
-        setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
-    };
+    // const handleMapLoad = () => {
+    //     const [lat, lng] = accomadation.googleMap.split(", ");
+    //     setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
+    // };
 
     const iconMap = {
         webUrl: <FaGlobe />,
@@ -110,8 +110,7 @@ const AccomadationDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        {/* <h1 className="text-3xl font-bold mb-5">{accomadation.name}</h1> */}
-                        <h1 className="text-3xl font-bold mb-5">Madolsima Start Camping</h1>
+                        <h1 className="text-3xl font-bold mb-5">{accomadation.name}</h1>
 
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
@@ -127,8 +126,7 @@ const AccomadationDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {/* {accomadation.name} */}
-                                    Madolsima Start Camping
+                                    {accomadation.name}
                                 </span>
                             </p>
 
@@ -312,11 +310,11 @@ const AccomadationDetails = () => {
                                     }}
                                     className="block"
                                 >
-                                    <iframe
+                                    {/* <iframe
                                         src={mapUrl}
                                         title="Map"
                                         className="w-full h-80 lg:h-96 border-0 rounded-lg"
-                                    ></iframe>
+                                    ></iframe> */}
                                 </a>
                             </div>
 

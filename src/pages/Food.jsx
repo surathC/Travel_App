@@ -293,7 +293,7 @@ const Food = () => {
     useEffect(() => {
         const fetchfoods = async () => {
             try {
-                const response = await axios.get(`${API_URL}services?pageSize=100`, {
+                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
