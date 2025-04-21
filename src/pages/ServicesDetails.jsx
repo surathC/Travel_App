@@ -110,7 +110,10 @@ const ServiceDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold mb-5">{service.name}</h1>
+                        <h1 className="text-3xl font-bold mb-5">
+                            {/* {service.name} */}
+                            Polonnaruwa
+                        </h1>
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
                         </button>
@@ -125,7 +128,8 @@ const ServiceDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {service.name}
+                                    {/* {service.name} */}
+                                    Polonnaruwa
                                 </span>
                             </p>
 
@@ -137,12 +141,18 @@ const ServiceDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">{service.ticketPrice}</span></p>
+                            <p>District - <span className="font-bold">
+                                {/* {service.ticketPrice} */}
+                                Polonnaruwa
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>City - <span className="font-bold">{service.openingHorurs}</span></p>
+                            <p>City - <span className="font-bold">
+                                {/* {service.openingHorurs} */}
+                                Polonnaruwa
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -150,14 +160,34 @@ const ServiceDetails = () => {
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
-                                    {service.categories.map(category => category.name).join(", ")}
+                                    {/* {service.categories.map(category => category.name).join(", ")} */}
+                                    Main Cat / Sub Cat
+
                                 </span>
                             </p>
                         </div>
 
+
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
-                            <p>Ratings <span className="font-bold text-yellow-500">{service.rating}</span></p>
+                            <p className="text-gray-800 font-bold text-sm">Ratings</p>
+                            <div className="flex items-center">
+                                {Array.from({ length: 5 }, (_, index) => (
+                                    <svg
+                                        key={index}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={index < 3 ? "yellow" : "none"}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                                    </svg>
+                                ))}
+                            </div>
                         </div>
 
                     </div>
@@ -204,7 +234,10 @@ const ServiceDetails = () => {
                 <div className="container mx-auto py-10">
                     <h2 className="text-center text-2xl font-bold mb-6">
                         - Some photos from - <br />
-                        <span className="text-orange-500">{service.name}</span>
+                        <span className="text-orange-500">
+                            {/* {service.name} */}
+                            Polonnaruwa
+                        </span>
                     </h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -260,7 +293,11 @@ const ServiceDetails = () => {
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{service.name}</span> -</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
+                                    {/* {service.name} */}
+                                    Polonnaruwa
+                                </span>
+                                    -</h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     {service.description}
                                 </p>
@@ -275,7 +312,8 @@ const ServiceDetails = () => {
                                             window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                         }}
                                     >
-                                        {service.name}
+                                        {/* {service.name} */}
+                                        Polonnaruwa
                                     </span> -
                                 </h2>
                                 <a

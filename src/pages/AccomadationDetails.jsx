@@ -9,6 +9,10 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { useLocation } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaGlobe } from 'react-icons/fa';
+import axios from 'axios';
+import { Oval } from 'react-loader-spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFrown } from '@fortawesome/free-solid-svg-icons';
 
 const AccomadationDetails = () => {
     const location = useLocation();
@@ -97,6 +101,43 @@ const AccomadationDetails = () => {
     //     setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
     // };
 
+    const [weather, setWeather] = useState({
+        loading: false,
+        data: {},
+        error: false,
+    });
+
+    const toDateFunction = () => {
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
+    useEffect(() => {
+        if (accomadation?.googleMap) {
+            const [lat, lng] = accomadation.googleMap.split(", ");
+            console.log(lat, lng)
+            fetchWeather(lat, lng);
+        }
+    }, [accomadation]);
+
+    const fetchWeather = async (lat, lng) => {
+        setWeather({ ...weather, loading: true });
+
+        try {
+            const response = await axios.get('https://api.weatherapi.com/v1/current.json', {
+                params: {
+                    key: '27fc86cd8c46462a9e0142307252104',
+                    q: `${6.04165351133727},${80.29212929325558}`,
+                },
+            });
+
+            console.log(response)
+            setWeather({ data: response.data, loading: false, error: false });
+        } catch (error) {
+            setWeather({ ...weather, data: {}, error: true });
+        }
+    }
+
     const iconMap = {
         webUrl: <FaGlobe />,
         twitter: <FaTwitter />,
@@ -110,7 +151,10 @@ const AccomadationDetails = () => {
             <div className="bg-gray-50 py-8">
                 <div className="container mx-auto">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold mb-5">{accomadation.name}</h1>
+                        <h1 className="text-3xl font-bold mb-5">
+                            {/* {accomadation.name} */}
+                            hilton colombo
+                        </h1>
 
                         <button className="bg-red-500 text-white px-6 py-2 rounded-full flex items-center justify-center mx-auto gap-2 hover:bg-red-600">
                             <i className="fas fa-heart"></i> Add to Favorites
@@ -126,7 +170,8 @@ const AccomadationDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {accomadation.name}
+                                    {/* {accomadation.name} */}
+                                    hilton colombo
                                 </span>
                             </p>
 
@@ -137,44 +182,75 @@ const AccomadationDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
-                            <p>Ratings <span className="font-bold text-yellow-500">{accomadation.rating}</span></p>
+                            <p className="text-gray-800 font-bold text-sm">Ratings</p>
+                            <div className="flex items-center">
+                                {Array.from({ length: 5 }, (_, index) => (
+                                    <svg
+                                        key={index}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={index < 3 ? "yellow" : "none"}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                                    </svg>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">{accomadation.ticketPrice}</span></p>
+                            <p>District - <span className="font-bold">
+                                {/* {accomadation.ticketPrice} */}
+                                Colombo
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>City - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                            <p>City - <span className="font-bold">
+                                {/* {accomadation.openingHorurs} */}
+                                Colombo
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-budget text-gray-600 text-xl"></i>
-                            <p>Budget Type - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                            <p>Budget Type - <span className="font-bold">
+                                {/* {accomadation.openingHorurs} */}
+                                Budget
+                            </span></p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-budget text-gray-600 text-xl"></i>
-                            <p>Features - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                            <p>Features - <span className="font-bold">
+                                {/* {accomadation.openingHorurs} */}
+                                Private Barthroom
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-budget text-gray-600 text-xl"></i>
-                            <p>Special Note - <span className="font-bold">{accomadation.openingHorurs}</span></p>
+                            <p>Special Note - <span className="font-bold">
+                                {/* {accomadation.openingHorurs} */}
+                                Please do not smoke
+                            </span></p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
-                                    {accomadation.categories.map(category => category.name).join(", ")}
+                                    {/* {accomadation.categories.map(category => category.name).join(", ")} */}
+                                    Category
                                 </span>
                             </p>
                         </div>
@@ -196,8 +272,11 @@ const AccomadationDetails = () => {
                                 ) : null
                             ))}
                         </div>
-
                     </div>
+{/* 
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
+
+                    </div> */}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
 
@@ -223,7 +302,7 @@ const AccomadationDetails = () => {
                         - Some photos from - <br />
                         <span className="text-orange-500">
                             {/* {accomadation.name} */}
-                            Madolsima Start Camping
+                            hilton colombo
                         </span>
                     </h2>
                     <Swiper
@@ -282,7 +361,7 @@ const AccomadationDetails = () => {
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
                                     {/* {accomadation.name} */}
-                                    Madolsima Start Camping
+                                    hilton colombo
                                 </span> -</h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     {accomadation.description}
@@ -299,7 +378,7 @@ const AccomadationDetails = () => {
                                         }}
                                     >
                                         {/* {accomadation.name} */}
-                                        Madolsima Start Camping
+                                        hilton colombo
                                     </span> -
                                 </h2>
                                 <a
@@ -327,16 +406,54 @@ const AccomadationDetails = () => {
             <div className="bg-white-100">
                 <div className="bg-white-50 py-8">
                     <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">
-                            {/* {accomadation.name} */}
-                            Madolsima Start Camping
-                        </span> -</h2>
+                        <h2 className="text-2xl text-center font-bold mb-4">
+                            - Weather Report Of <span className="text-orange-500">
+                                {/* {activity.name} */}
+                                hilton Colombo
+                            </span> -
+                        </h2>
                         <div className="text-center">
-                            <iframe
-                                src="https://weather.com/"
-                                title="Weather Report"
-                                className="w-full h-96 border-0 rounded-lg"
-                            ></iframe>
+                            {weather.loading ? (
+                                <div className="flex justify-center items-center h-96">
+                                    <Oval type="Oval" color="black" height={100} width={100} />
+                                </div>
+                            ) : weather.error ? (
+                                <div className="flex flex-col justify-center items-center h-96">
+                                    <FontAwesomeIcon icon={faFrown} size="2x" />
+                                    <span className="text-xl mt-4">Weather data not available</span>
+                                </div>
+                            ) : weather.data?.current ? (
+                                <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                                    <div className="city-name">
+                                        <h2 className="text-xl font-bold">
+                                            {weather.data.location?.name}, <span>{weather.data.location?.country}</span>
+                                        </h2>
+                                    </div>
+                                    <div className="date text-gray-600 mb-4">
+                                        <span>{toDateFunction()}</span>
+                                    </div>
+                                    <div className="icon-temp flex items-center justify-center">
+                                        <img
+                                            className="w-20 h-20"
+                                            src={`https:${weather.data.current.condition?.icon}`}
+                                            alt={weather.data.current.condition?.text}
+                                        />
+                                        <span className="text-4xl font-bold">
+                                            {Math.round(weather.data.current.temp_c)}
+                                            <sup className="text-xl">°C</sup>
+                                        </span>
+                                    </div>
+                                    <div className="des-wind mt-4">
+                                        <p className="text-lg capitalize">{weather.data.current.condition?.text}</p>
+                                        <p>Humidity: {weather.data.current.humidity}%</p>
+                                        <p>Wind Speed: {weather.data.current.wind_kph} km/h</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="h-96 flex items-center justify-center">
+                                    <p>Weather information will appear here</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

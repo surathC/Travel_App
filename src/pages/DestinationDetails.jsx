@@ -197,7 +197,24 @@ const DestinationDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
-                            <p>Ratings <span className="font-bold text-yellow-500">{destination.rating}</span></p>
+                            <p className="text-gray-800 font-bold text-sm">Ratings</p>
+                            <div className="flex items-center">
+                                {Array.from({ length: 5 }, (_, index) => (
+                                    <svg
+                                        key={index}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={index < 3 ? "yellow" : "none"}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                                    </svg>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-3">

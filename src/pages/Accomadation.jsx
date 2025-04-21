@@ -678,24 +678,22 @@ const Accomadation = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
+                                    // src={accomadation.photos && accomadation.photos.length > 0 ? accomadation.photos[0].url : 'default-image-url.jpg'}
+                                    src='https://www.hilton.com/im/en/COLHITW/20151064/exterior-1-.jpg?impolicy=crop&cw=4088&ch=2288&gravity=NorthWest&xposition=0&yposition=355&rw=768&rh=430'
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{accomadation.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">
+                                    {/* {accomadation.name} */}
+                                    hilton colombo
+                                </h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {accomadation.categories.map(category => category.name).join(", ")}
+                                    {/* {accomadation.categories.map(category => category.name).join(", ")} */}
+                                    Category
                                 </p>
 
-
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
-                                    <span className="mr-2">
-                                        <i className="far fa-clock"></i> 
-                                        {accomadation.suggestionTime}
-                                    </span>
-                                </div>
                                 <p className="text-gray-700 text-sm mb-4">
                                     {accomadation.description}
                                 </p>

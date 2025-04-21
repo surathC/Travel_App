@@ -648,23 +648,22 @@ const FindGuide = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={findGuide.photos && findGuide.photos.length > 0 ? findGuide.photos[0].url : 'default-image-url.jpg'}
+                                    // src={findGuide.photos && findGuide.photos.length > 0 ? findGuide.photos[0].url : 'default-image-url.jpg'}
+                                    src='https://srilankadriverguides.com/wp-content/uploads/2022/08/Sekara_SriLankaTour_guide-Safari-768x431-2.jpg'
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{findGuide.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">
+                                    {/* {findGuide.name} */}
+                                    NIMAL WEERASINGHE
+                                </h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {findGuide.subCategories.map(category => category.name).join(", ")}
+                                    {/* {findGuide.subCategories.map(category => category.name).join(", ")} */}
+                                    Main Cat / Sub Cat
                                 </p>
 
-
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
-                                    <span className="mr-2">
-                                        <i className="far fa-clock"></i> {findGuide.suggestionTime}
-                                    </span>
-                                </div>
                                 <p className="text-gray-700 text-sm mb-4">
                                     {findGuide.description}
                                 </p>

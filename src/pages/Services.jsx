@@ -679,10 +679,13 @@ const Service = () => {
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{service.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">
+                                    {/* {service.name} */}
+                                    Car Rent
+                                    </h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
                                     {/* {service.categories.map(category => category.name).join(", ")} */}
-                                    Category
+                                    Main Cat / Sub Cat
                                 </p>
 
                                 <p className="text-gray-700 text-sm mb-4">

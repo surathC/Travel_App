@@ -21,7 +21,7 @@ const Event = () => {
     const mainFilters = [
         "District",
         "City",
-        "NoName",
+        "Need Add Name",
         "Date",
         "Popular Area",
         "Category Wise"
@@ -34,7 +34,7 @@ const Event = () => {
     const [filterData, setFilterData] = useState({
         District: [],
         City: [],
-        "NoName": [],
+        "Need Add Name": [],
         "Date": [],
         "Popular Area": [],
         "Category Wise": []
@@ -762,27 +762,27 @@ const Event = () => {
                         >
                             <div className={`w-full ${isVerticalLayout ? 'mb-4' : 'sm:w-1/3'}`}>
                                 <img
-                                    src={event.photos && event.photos.length > 0 ? event.photos[0].url : 'default-image-url.jpg'}
+                                    // src={event.photos && event.photos.length > 0 ? event.photos[0].url : 'default-image-url.jpg'}
+                                    src='https://ceylontoday.lk/wp-content/uploads/2022/05/2-35.jpg'
                                     className="w-full h-60 object-cover rounded-lg"
                                 />
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{event.name}</h3>
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">
+                                    {/* {event.name} */}
+                                    Nadagama Kandy 
+                                    </h3>
                                 <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {event.subCategories
+                                    {/* {event.subCategories
                                         .map(subCategory => `${subCategory.category.name}/${subCategory.name}`)
-                                        .join(", ")}
+                                        .join(", ")} */}
+                                        Main Cat
                                 </p>
 
-
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
-                                    <span className="mr-2">
-                                        <i className="far fa-clock"></i> {event.suggestionTime}
-                                    </span>
-                                </div>
                                 <p className="text-gray-700 text-sm mb-4">
-                                    {event.description}
+                                    {/* {event.description} */}
+                                    Description
                                 </p>
 
                                 <div className="mb-4">

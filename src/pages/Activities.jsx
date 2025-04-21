@@ -683,7 +683,7 @@ const Activity = () => {
                                     {activity.categories.map(category => category.name).join(", ")}
                                 </p> */}
                                  <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    Category
+                                    Main Category / Sub Category
                                 </p>
 
                                 <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">

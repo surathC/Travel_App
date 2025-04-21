@@ -9,6 +9,10 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { useLocation } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaGlobe } from 'react-icons/fa';
+import axios from 'axios';
+import { Oval } from 'react-loader-spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFrown } from '@fortawesome/free-solid-svg-icons';
 
 const ActivityDetails = () => {
     const location = useLocation();
@@ -89,13 +93,51 @@ const ActivityDetails = () => {
 
     const [mapUrl, setMapUrl] = useState(() => {
         const [lat, lng] = activity.googleMap.split(", ");
-        return `https://www.google.com/maps?q=${lat},${lng}&output=embed`;
+        return `https://www.google.com/maps?q=${6.04165351133727},${80.29212929325558}&output=embed`;
     });
 
     const handleMapLoad = () => {
         const [lat, lng] = activity.googleMap.split(", ");
         setMapUrl(`https://www.google.com/maps?q=${lat},${lng}&output=embed`);
     };
+
+    const [weather, setWeather] = useState({
+        loading: false,
+        data: {},
+        error: false,
+    });
+
+    const toDateFunction = () => {
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
+    useEffect(() => {
+        if (activity?.googleMap) {
+            const [lat, lng] = activity.googleMap.split(", ");
+            console.log(lat, lng)
+            fetchWeather(lat, lng);
+        }
+    }, [activity]);
+
+    const fetchWeather = async (lat, lng) => {
+        setWeather({ ...weather, loading: true });
+
+        try {
+            const response = await axios.get('https://api.weatherapi.com/v1/current.json', {
+                params: {
+                    key: '27fc86cd8c46462a9e0142307252104',
+                    q: `${6.04165351133727},${80.29212929325558}`,
+                },
+            });
+
+            console.log(response)
+            setWeather({ data: response.data, loading: false, error: false });
+        } catch (error) {
+            setWeather({ ...weather, data: {}, error: true });
+        }
+    }
+
 
     const iconMap = {
         webUrl: <FaGlobe />,
@@ -126,7 +168,8 @@ const ActivityDetails = () => {
                                         window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                     }}
                                 >
-                                    {activity.name}
+                                    {/* {activity.name} */}
+                                    Galle
                                 </span>
                             </p>
 
@@ -143,17 +186,34 @@ const ActivityDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">{activity.ticketPrice}</span></p>
+                            <p>District - <span className="font-bold">Galle</span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>City - <span className="font-bold">{activity.openingHorurs}</span></p>
+                            <p>City - <span className="font-bold">Galle</span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
-                            <p>Ratings <span className="font-bold text-yellow-500">{activity.rating}</span></p>
+                            <p className="text-gray-800 font-bold text-sm">Ratings</p>
+                            <div className="flex items-center">
+                                {Array.from({ length: 5 }, (_, index) => (
+                                    <svg
+                                        key={index}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={index < 3 ? "yellow" : "none"}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                                    </svg>
+                                ))}
+                            </div>
                         </div>
 
                     </div>
@@ -164,6 +224,7 @@ const ActivityDetails = () => {
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
+                                    Main Cat / Sub Cat
                                     {/* {activity.categories.map(category => category.name).join(", ")} */}
                                 </span>
                             </p>
@@ -211,7 +272,10 @@ const ActivityDetails = () => {
                 <div className="container mx-auto py-10">
                     <h2 className="text-center text-2xl font-bold mb-6">
                         - Some photos from - <br />
-                        <span className="text-orange-500">{activity.name}</span>
+                        <span className="text-orange-500">
+                            {/* {activity.name} */}
+                            Galle
+                        </span>
                     </h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
@@ -267,7 +331,11 @@ const ActivityDetails = () => {
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
                             <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">{activity.name}</span> -</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
+                                    {/* {activity.name} */}
+                                    Galle
+                                </span> -
+                                </h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     {/* {activity.description} */}
                                     Sri Lanka is a top destination for surfing enthusiasts from around the world. With its beautiful beaches, warm waters, and consistent waves, it’s no wonder why. Whether you’re a beginner or an experienced surfer, Sri Lanka has something to offer. In this article, we’ll take a closer look at surfing in Sri Lanka and everything you need to know before you hit the waves.
@@ -279,18 +347,19 @@ const ActivityDetails = () => {
                                     - Map Of <span
                                         className="text-orange-500 cursor-pointer"
                                         onClick={() => {
-                                            const [lat, lng] = activity.googleMap.split(", ");
-                                            window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+                                            // const [lat, lng] = activity.googleMap.split(", ");
+                                            window.open(`https://www.google.com/maps?q=${6.04165351133727},${80.29212929325558}`, "_blank");
                                         }}
                                     >
-                                        {activity.name}
+                                        {/* {activity.name} */}
+                                        Galle
                                     </span> -
                                 </h2>
                                 <a
                                     href="#"
                                     onClick={() => {
-                                        const [lat, lng] = activity.googleMap.split(", ");
-                                        window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+                                        // const [lat, lng] = activity.googleMap.split(", ");
+                                        window.open(`https://www.google.com/maps?q=${6.04165351133727},${80.29212929325558}`, "_blank");
                                     }}
                                     className="block"
                                 >
@@ -311,13 +380,54 @@ const ActivityDetails = () => {
             <div className="bg-white-100">
                 <div className="bg-white-50 py-8">
                     <div className="container mx-auto">
-                        <h2 className="text-2xl text-center font-bold mb-4">- Weather Report Of  <span className="text-orange-500">{activity.name}</span> -</h2>
+                        <h2 className="text-2xl text-center font-bold mb-4">
+                            - Weather Report Of <span className="text-orange-500">
+                                {/* {activity.name} */}
+                                Galle
+                            </span> -
+                        </h2>
                         <div className="text-center">
-                            <iframe
-                                src="https://weather.com/"
-                                title="Weather Report"
-                                className="w-full h-96 border-0 rounded-lg"
-                            ></iframe>
+                            {weather.loading ? (
+                                <div className="flex justify-center items-center h-96">
+                                    <Oval type="Oval" color="black" height={100} width={100} />
+                                </div>
+                            ) : weather.error ? (
+                                <div className="flex flex-col justify-center items-center h-96">
+                                    <FontAwesomeIcon icon={faFrown} size="2x" />
+                                    <span className="text-xl mt-4">Weather data not available</span>
+                                </div>
+                            ) : weather.data?.current ? (
+                                <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                                    <div className="city-name">
+                                        <h2 className="text-xl font-bold">
+                                            {weather.data.location?.name}, <span>{weather.data.location?.country}</span>
+                                        </h2>
+                                    </div>
+                                    <div className="date text-gray-600 mb-4">
+                                        <span>{toDateFunction()}</span>
+                                    </div>
+                                    <div className="icon-temp flex items-center justify-center">
+                                        <img
+                                            className="w-20 h-20"
+                                            src={`https:${weather.data.current.condition?.icon}`}
+                                            alt={weather.data.current.condition?.text}
+                                        />
+                                        <span className="text-4xl font-bold">
+                                            {Math.round(weather.data.current.temp_c)}
+                                            <sup className="text-xl">°C</sup>
+                                        </span>
+                                    </div>
+                                    <div className="des-wind mt-4">
+                                        <p className="text-lg capitalize">{weather.data.current.condition?.text}</p>
+                                        <p>Humidity: {weather.data.current.humidity}%</p>
+                                        <p>Wind Speed: {weather.data.current.wind_kph} km/h</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="h-96 flex items-center justify-center">
+                                    <p>Weather information will appear here</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -139,17 +139,39 @@ const FoodDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
-                            <p>Ratings <span className="font-bold text-yellow-500">{food.rating}</span></p>
+                            <p className="text-gray-800 font-bold text-sm">Ratings</p>
+                            <div className="flex items-center">
+                                {Array.from({ length: 5 }, (_, index) => (
+                                    <svg
+                                        key={index}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={index < 3 ? "yellow" : "none"}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 mx-1"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                                    </svg>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">{food.ticketPrice}</span></p>
+                            <p>District - <span className="font-bold">
+                                Gampaha
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>City - <span className="font-bold">{food.openingHorurs}</span></p>
+                            <p>City - <span className="font-bold">
+                                {/* {food.openingHorurs} */}
+                                Gampaha
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -157,7 +179,8 @@ const FoodDetails = () => {
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
-                                    {food.categories.map(category => category.name).join(", ")}
+                                    {/* {food.categories.map(category => category.name).join(", ")} */}
+                                    Main Cat
                                 </span>
                             </p>
                         </div>
@@ -166,7 +189,10 @@ const FoodDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
-                            <p>Special Note - <span className="font-bold">{food.openingHorurs}</span></p>
+                            <p>Special Note - <span className="font-bold">
+                                {/* {food.openingHorurs} */}
+                                Special
+                            </span></p>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -188,7 +214,10 @@ const FoodDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-list-alt text-gray-600 text-xl"></i>
-                            <p>Features - <span className="font-bold">{food.openingHorurs}</span></p>
+                            <p>Features - <span className="font-bold">
+                                {/* {food.openingHorurs} */}
+                                Features
+                            </span></p>
                         </div>
                     </div>
 
