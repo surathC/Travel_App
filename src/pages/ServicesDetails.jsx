@@ -140,8 +140,7 @@ const ServiceDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>                            <p>District - <span className="font-bold">
                                 {/* {service.ticketPrice} */}
                                 Polonnaruwa
                             </span></p>
@@ -156,7 +155,7 @@ const ServiceDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -166,8 +165,9 @@ const ServiceDetails = () => {
                                 </span>
                             </p>
                         </div>
+                    </div>
 
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p className="text-gray-800 font-bold text-sm">Ratings</p>
@@ -190,10 +190,8 @@ const ServiceDetails = () => {
                             </div>
                         </div>
 
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
                             {Object.entries(service.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -292,7 +290,7 @@ const ServiceDetails = () => {
                 <div className="bg-white-50">
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
-                            <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
+                            <div className="bg-white-100 w-full lg:w-2/2 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
                                     {/* {service.name} */}
                                     Polonnaruwa
@@ -303,7 +301,7 @@ const ServiceDetails = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
+                            {/* <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center">
                                     - Map Of <span
                                         className="text-orange-500 cursor-pointer"
@@ -312,7 +310,7 @@ const ServiceDetails = () => {
                                             window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                         }}
                                     >
-                                        {/* {service.name} */}
+                                        {service.name}
                                         Polonnaruwa
                                     </span> -
                                 </h2>
@@ -330,7 +328,7 @@ const ServiceDetails = () => {
                                         className="w-full h-80 lg:h-96 border-0 rounded-lg"
                                     ></iframe>
                                 </a>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>

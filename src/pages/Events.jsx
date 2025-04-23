@@ -21,7 +21,7 @@ const Event = () => {
     const mainFilters = [
         "District",
         "City",
-        "Need Add Name",
+        "NeedAddName",
         "Date",
         "Popular Area",
         "Category Wise"
@@ -34,7 +34,7 @@ const Event = () => {
     const [filterData, setFilterData] = useState({
         District: [],
         City: [],
-        "Need Add Name": [],
+        "NeedAddName": [],
         "Date": [],
         "Popular Area": [],
         "Category Wise": []
@@ -274,7 +274,7 @@ const Event = () => {
     useEffect(() => {
         setFilterData((prevData) => ({
             ...prevData,
-            NoName: [
+            NeedAddName: [
                 { id: 1, name: "Today" },
                 { id: 2, name: "Tomorrow" },
                 { id: 3, name: "Weekend" }

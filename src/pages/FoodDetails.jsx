@@ -160,7 +160,7 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
                             <p>District - <span className="font-bold">
                                 Gampaha
                             </span></p>
@@ -175,7 +175,7 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -188,7 +188,7 @@ const FoodDetails = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-sticky-note text-gray-600 text-xl"></i>
                             <p>Special Note - <span className="font-bold">
                                 {/* {food.openingHorurs} */}
                                 Special
@@ -196,6 +196,8 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
+
                             <p>Social Media -</p>
                             {Object.entries(food.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -213,7 +215,7 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-check-circle text-gray-600 text-xl"></i>
                             <p>Features - <span className="font-bold">
                                 {/* {food.openingHorurs} */}
                                 Features
@@ -299,7 +301,7 @@ const FoodDetails = () => {
                 <div className="bg-white-50">
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
-                            <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
+                            <div className="bg-white-100 w-full lg:w-2/2 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
                                     {/* {food.name} */}
                                     Nelum Kole
@@ -310,7 +312,7 @@ const FoodDetails = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
+                            {/* <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center">
                                     - Map Of <span
                                         className="text-orange-500 cursor-pointer"
@@ -319,7 +321,6 @@ const FoodDetails = () => {
                                             window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
                                         }}
                                     >
-                                        {/* {food.name} */}
                                         Nelum Kole
                                     </span> -
                                 </h2>
@@ -337,7 +338,7 @@ const FoodDetails = () => {
                                         className="w-full h-80 lg:h-96 border-0 rounded-lg"
                                     ></iframe>
                                 </a>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>

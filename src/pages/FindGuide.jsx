@@ -65,6 +65,10 @@ const FindGuide = () => {
             items: [],
         },
         {
+            label: "Language Wise",
+            items: [],
+        },
+        {
             label: "Smart Trip Plan",
             items: [],
         },

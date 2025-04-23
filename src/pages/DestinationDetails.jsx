@@ -174,27 +174,7 @@ const DestinationDetails = () => {
                     </div>
 
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-users text-gray-600 text-xl"></i>
-                            <p>Traveler Type -  <span className="font-bold">
-                                {destination.travelTypes
-                                    .map((method) => method.name)
-                                    .join(", ")}
-                            </span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{destination.suggestionTime}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{destination.ticketPrice}</span></p>
-                        </div>
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p className="text-gray-800 font-bold text-sm">Ratings</p>
@@ -218,6 +198,27 @@ const DestinationDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-users text-gray-600 text-xl"></i>
+                            <p>Traveler Type -  <span className="font-bold">
+                                {destination.travelTypes
+                                    .map((method) => method.name)
+                                    .join(", ")}
+                            </span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-clock text-gray-600 text-xl"></i>
+                            <p>Suggestion Time - <span className="font-bold">{destination.suggestionTime}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
+                            <p>Ticket Price - <span className="font-bold">{destination.ticketPrice}</span></p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
+                        <div className="flex items-center gap-3">
                             <i className="fas fa-car text-gray-600 text-xl"></i>
                             <p>
                                 Best Transport Method -{" "}
@@ -233,11 +234,9 @@ const DestinationDetails = () => {
                             <i className="fas fa-clock text-gray-600 text-xl"></i>
                             <p>Open Time - <span className="font-bold">{destination.openTime}</span></p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -250,6 +249,7 @@ const DestinationDetails = () => {
 
 
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
                             {Object.entries(destination.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -268,8 +268,8 @@ const DestinationDetails = () => {
 
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
 
+                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-phone text-gray-600 text-xl"></i>
                             <p>

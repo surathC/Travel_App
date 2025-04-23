@@ -178,22 +178,6 @@ const ActivityDetails = () => {
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{activity.suggestionTime}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>District - <span className="font-bold">Galle</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-city text-gray-600 text-xl"></i>
-                            <p>City - <span className="font-bold">Galle</span></p>
-                        </div>
-
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p className="text-gray-800 font-bold text-sm">Ratings</p>
@@ -216,11 +200,25 @@ const ActivityDetails = () => {
                             </div>
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">Galle</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">Galle</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-clock text-gray-600 text-xl"></i>
+                            <p>Suggestion Time - <span className="font-bold">{activity.suggestionTime}</span></p>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -232,6 +230,7 @@ const ActivityDetails = () => {
 
 
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
                             {Object.entries(activity.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -250,7 +249,7 @@ const ActivityDetails = () => {
 
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-phone text-gray-600 text-xl"></i>
@@ -330,7 +329,7 @@ const ActivityDetails = () => {
                 <div className="bg-white-50">
                     <div className="container mx-auto py-8">
                         <div className="flex flex-wrap lg:flex-nowrap gap-8">
-                            <div className="bg-white-100 w-full lg:w-2/3 p-6 rounded-lg">
+                            <div className="bg-white-100 w-full lg:w-2/2 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center"> - Details from  <span className="text-orange-500">
                                     {/* {activity.name} */}
                                     Galle
@@ -342,23 +341,23 @@ const ActivityDetails = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
+                            {/* <div className="bg-gray-100 w-full lg:w-1/3 p-6 rounded-lg">
                                 <h2 className="text-2xl font-bold mb-4 text-center">
                                     - Map Of <span
                                         className="text-orange-500 cursor-pointer"
                                         onClick={() => {
-                                            // const [lat, lng] = activity.googleMap.split(", ");
+                                            const [lat, lng] = activity.googleMap.split(", ");
                                             window.open(`https://www.google.com/maps?q=${6.04165351133727},${80.29212929325558}`, "_blank");
                                         }}
                                     >
-                                        {/* {activity.name} */}
+                                        {activity.name}
                                         Galle
                                     </span> -
                                 </h2>
                                 <a
                                     href="#"
                                     onClick={() => {
-                                        // const [lat, lng] = activity.googleMap.split(", ");
+                                        const [lat, lng] = activity.googleMap.split(", ");
                                         window.open(`https://www.google.com/maps?q=${6.04165351133727},${80.29212929325558}`, "_blank");
                                     }}
                                     className="block"
@@ -369,7 +368,7 @@ const ActivityDetails = () => {
                                         className="w-full h-80 lg:h-96 border-0 rounded-lg"
                                     ></iframe>
                                 </a>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>
@@ -377,12 +376,12 @@ const ActivityDetails = () => {
             </div>
 
 
-            <div className="bg-white-100">
+            {/* <div className="bg-white-100">
                 <div className="bg-white-50 py-8">
                     <div className="container mx-auto">
                         <h2 className="text-2xl text-center font-bold mb-4">
                             - Weather Report Of <span className="text-orange-500">
-                                {/* {activity.name} */}
+                                {activity.name}
                                 Galle
                             </span> -
                         </h2>
@@ -431,7 +430,7 @@ const ActivityDetails = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="bg-gray-100">
                 <div className="bg-gray-50 py-8">

@@ -203,7 +203,7 @@ const AccomadationDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
                             <p>District - <span className="font-bold">
                                 {/* {accomadation.ticketPrice} */}
                                 Colombo
@@ -219,7 +219,7 @@ const AccomadationDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <i className="fas fa-wallet text-gray-600 text-xl"></i>
                             <p>Budget Type - <span className="font-bold">
                                 {/* {accomadation.openingHorurs} */}
                                 Budget
@@ -229,7 +229,7 @@ const AccomadationDetails = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <i className="fas fa-check-circle text-gray-600 text-xl"></i>
                             <p>Features - <span className="font-bold">
                                 {/* {accomadation.openingHorurs} */}
                                 Private Barthroom
@@ -237,7 +237,7 @@ const AccomadationDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-budget text-gray-600 text-xl"></i>
+                            <i className="fas fa-sticky-note text-gray-600 text-xl"></i>
                             <p>Special Note - <span className="font-bold">
                                 {/* {accomadation.openingHorurs} */}
                                 Please do not smoke
@@ -245,7 +245,7 @@ const AccomadationDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -257,6 +257,7 @@ const AccomadationDetails = () => {
 
 
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
                             {Object.entries(accomadation.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -273,13 +274,12 @@ const AccomadationDetails = () => {
                             ))}
                         </div>
                     </div>
-{/* 
+                    {/* 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
 
                     </div> */}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
-
+                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-phone text-gray-600 text-xl"></i>
                             <p>

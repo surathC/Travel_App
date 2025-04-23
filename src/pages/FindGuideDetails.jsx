@@ -137,18 +137,7 @@ const FindGuideDetails = () => {
                     </div>
 
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Suggestion Time - <span className="font-bold">{findGuide.suggestionTime}</span></p>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{findGuide.ticketPrice}</span></p>
-                        </div>
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p className="text-gray-800 font-bold text-sm">Ratings</p>
@@ -172,14 +161,21 @@ const FindGuideDetails = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-clock text-gray-600 text-xl"></i>
-                            <p>Open Time - <span className="font-bold">{findGuide.openingHorurs}</span></p>
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">Polonnaruwa</span></p>
                         </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">Polonnaruwa</span></p>
+                        </div>
+
+
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
-                            <i className="fas fa-list-alt text-gray-600 text-xl"></i>
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
@@ -188,8 +184,8 @@ const FindGuideDetails = () => {
                             </p>
                         </div>
 
-
                         <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
                             {Object.entries(findGuide.socialMediaLinksJson).map(([key, url]) => (
                                 url ? (
@@ -206,6 +202,39 @@ const FindGuideDetails = () => {
                             ))}
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-id-card text-gray-600 text-xl"></i>
+                            <p>
+                                Registration Number -{" "}
+                                <span className="font-bold">GT45627</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-certificate text-gray-600 text-xl"></i>
+                            <p>
+                                Validity Status of License -{" "}
+                                <span className="font-bold">Approved</span>
+                            </p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-language text-gray-600 text-xl"></i>
+                            <p>
+                                Languages -{" "}
+                                <span className="font-bold">Sinhala, English</span>
+                            </p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-sticky-note text-gray-600 text-xl"></i>
+                            <p>
+                                Special Note -{" "}
+                                <span className="font-bold">No</span>
+                            </p>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-8 text-gray-700">
