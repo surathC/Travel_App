@@ -369,7 +369,7 @@ const Destination = () => {
     useEffect(() => {
         const fetchDestinations = async (page) => {
             try {
-                const response = await axios.get(`${API_URL}destinations?page=${page}&pageSize=${itemsPerPage}`, {
+                const response = await axios.get(`${API_URL}destinations/web/?page=${page}&pageSize=${itemsPerPage}`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },

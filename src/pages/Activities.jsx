@@ -300,7 +300,7 @@ const Activity = () => {
     useEffect(() => {
         const fetchactivities = async () => {
             try {
-                const response = await axios.get(`${API_URL}destinations?pageSize=100`, {
+                const response = await axios.get(`${API_URL}destinations/web/?pageSize=100`, {
                     headers: {
                         Authorization: `Bearer ${ACCESS_TOKEN}`,
                     },
