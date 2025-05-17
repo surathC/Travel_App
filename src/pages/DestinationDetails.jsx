@@ -213,7 +213,7 @@ const DestinationDetails = () => {
 
                         <div className="flex items-center gap-3">
                             <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
-                            <p>Ticket Price - <span className="font-bold">{destination.ticketPrice}</span></p>
+                            <p>Need a Ticket? - <span className="font-bold">Yes</span></p>
                         </div>
                     </div>
 
@@ -240,14 +240,24 @@ const DestinationDetails = () => {
                             <p>
                                 Category -{" "}
                                 <span className="font-bold">
-                                    {destination.subCategories
-                                        .map(subCategory => `${subCategory.category.name}/${subCategory.name}`)
-                                        .join(", ")}
+                                    {[...new Set(destination.subCategories.map(subCategory => subCategory.category.name))].join(", ")}
                                 </span>
                             </p>
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-tags text-gray-600 text-xl"></i>
+                            <p>
+                                Sub Category -{" "}
+                                <span className="font-bold">
+                                    {destination.subCategories.map(subCategory => subCategory.name).join(", ")}
+                                </span>
+                            </p>
+                        </div>
 
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-share-alt text-gray-600 text-xl"></i>
                             <p>Social Media -</p>
@@ -266,6 +276,15 @@ const DestinationDetails = () => {
                             ))}
                         </div>
 
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
+                            <p>District - <span className="font-bold">Gampola</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-city text-gray-600 text-xl"></i>
+                            <p>City - <span className="font-bold">Ambuluwawa</span></p>
+                        </div>
                     </div>
 
 

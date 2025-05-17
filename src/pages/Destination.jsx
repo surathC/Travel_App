@@ -770,15 +770,25 @@ const Destination = () => {
                             </div>
 
                             <div className={`w-full ${isVerticalLayout ? 'p-4' : 'sm:w-2/3 sm:p-4 md:p-8'}`}>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-800">{destination.name}</h3>
-                                <p className="text-xs md:text-sm text-blue-600 mb-2">
-                                    {destination.subCategories
-                                        .map(subCategory => `${subCategory.category.name}/${subCategory.name}`)
-                                        .join(", ")}
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-2">{destination.name}</h3>
+
+                                <p className="text-xs md:text-sm text-blue-600">
+                                    <span className="font-semibold">Category:</span>{" "}
+                                    {[...new Set(destination.subCategories.map(sub => sub.category.name))].join(", ")}{" "}
+                                    | <span className="font-semibold">Sub Category:</span>{" "}
+                                    {destination.subCategories.map(sub => sub.name).join(", ")}
                                 </p>
 
-                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-4">
+                                <p className="text-xs md:text-sm text-blue-600 mb-2">
+                                    <span className="font-semibold">Disctrict:</span>{" "}
+                                    Ambuluwawa
+                                    | <span className="font-semibold">City:</span>{" "}
+                                    Ambuluwawa
+                                </p>
+
+                                <div className="flex items-center text-xs md:text-sm text-gray-600 mb-2">
                                     <span className="mr-2">
+                                        <span className="font-semibold">Suggestion Time:</span>{" "}
                                         <i className="far fa-clock"></i> {destination.suggestionTime}
                                     </span>
                                 </div>
