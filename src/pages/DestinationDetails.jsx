@@ -174,7 +174,7 @@ const DestinationDetails = () => {
                     </div>
 
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-star text-yellow-500 text-xl"></i>
                             <p className="text-gray-800 font-bold text-sm">Ratings</p>
@@ -211,13 +211,14 @@ const DestinationDetails = () => {
                             <p>Suggestion Time - <span className="font-bold">{destination.suggestionTime}</span></p>
                         </div>
 
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-ticket-alt text-gray-600 text-xl"></i>
                             <p>Need a Ticket? - <span className="font-bold">Yes</span></p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-car text-gray-600 text-xl"></i>
                             <p>
@@ -233,6 +234,27 @@ const DestinationDetails = () => {
                         <div className="flex items-center gap-3">
                             <i className="fas fa-clock text-gray-600 text-xl"></i>
                             <p>Open Time - <span className="font-bold">{destination.openTime}</span></p>
+                        </div>
+
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
+                        <div className="flex items-center gap-3">
+                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
+                            <p>Social Media -</p>
+                            {Object.entries(destination.socialMediaLinksJson).map(([key, url]) => (
+                                url ? (
+                                    <a
+                                        key={key}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 hover:text-blue-700"
+                                    >
+                                        {iconMap[key]}
+                                    </a>
+                                ) : null
+                            ))}
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -257,25 +279,7 @@ const DestinationDetails = () => {
 
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 text-gray-700">
-                        <div className="flex items-center gap-3">
-                            <i className="fas fa-share-alt text-gray-600 text-xl"></i>
-                            <p>Social Media -</p>
-                            {Object.entries(destination.socialMediaLinksJson).map(([key, url]) => (
-                                url ? (
-                                    <a
-                                        key={key}
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-500 hover:text-blue-700"
-                                    >
-                                        {iconMap[key]}
-                                    </a>
-                                ) : null
-                            ))}
-                        </div>
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-gray-700">
                         <div className="flex items-center gap-3">
                             <i className="fas fa-map-marker-alt text-gray-600 text-xl"></i>
                             <p>District - <span className="font-bold">Gampola</span></p>
